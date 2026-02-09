@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Поддержка</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+        }
+        
+        .support-container {
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        .support-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 0 auto 30px auto;
+            padding: 30px;
+            width: 100%;
+            box-sizing: border-box;
+            max-width: 800px;
+        }
+        
+        .faq-section {
+            margin-bottom: 10px;
+        }
+        
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .faq-question {
+            color: #1a73e8;
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .faq-question i {
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-answer {
+            color: #666;
+            line-height: 1.6;
+            font-size: 15px;
+            padding-left: 30px;
+            display: none;
+        }
+        
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(90deg);
+        }
+        
+        .page-header {
+            text-align: center;
+            margin: 0 0 30px 0;
+            padding: 0;
+        }
+        
+        .page-header h1 {
+            color: #1a73e8;
+            margin: 0 0 15px 0;
+            font-size: 32px;
+        }
+        
+        .page-header p {
+            color: #666;
+            margin: 0;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        
+        .section-title {
+            color: #1a73e8;
+            font-size: 24px;
+            margin: 0 0 25px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1a73e8;
+            text-align: center;
+        }
+        
+        .support-form {
+            width: 100%;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 16px;
+        }
+        
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 15px;
+            margin: 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            resize: vertical;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #1a73e8;
+            box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+        }
+        
+        .submit-btn {
+            width: auto;
+            padding: 14px 40px;
+            background: linear-gradient(135deg, #1a73e8 0%, #6c8ef5 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin: 0 auto;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 115, 232, 0.3);
+        }
+        
+        .submit-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .error {
+            color: #f44336;
+            background-color: #ffebee;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #f44336;
+            text-align: center;
+            font-size: 16px;
+        }
+        
+        .success {
+            color: #4CAF50;
+            background-color: #e8f5e9;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #4CAF50;
+            text-align: center;
+            font-size: 16px;
+        }
+        
+        .login-required {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 40px;
+            text-align: center;
+            margin: 50px auto;
+            max-width: 600px;
+        }
+        
+        .login-required h2 {
+            color: #1a73e8;
+            margin-bottom: 20px;
+        }
+        
+        .login-required p {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #1a73e8 0%, #6c8ef5 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 115, 232, 0.3);
+        }
+        
+        .btn-secondary {
+            background-color: #f8f9fa;
+            color: #666;
+            border: 1px solid #ddd;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e9ecef;
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .support-container {
+                padding: 10px;
+            }
+            
+            .support-section {
+                padding: 20px;
+            }
+            
+            .page-header h1 {
+                font-size: 28px;
+            }
+            
+            .section-title {
+                font-size: 22px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .login-required {
+                padding: 25px;
+                margin: 20px auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .support-section {
+                padding: 15px;
+            }
+            
+            .page-header h1 {
+                font-size: 24px;
+            }
+            
+            .section-title {
+                font-size: 20px;
+            }
+            
+            textarea {
+                min-height: 120px;
+                padding: 12px;
+            }
+            
+            .faq-question {
+                font-size: 15px;
+            }
+            
+            .faq-answer {
+                padding-left: 25px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="travel-navbar">
+        <div class="nav-container">
+            <div class="logo-section">
+                <a href="/" style="display: flex; align-items: center; gap: 15px; text-decoration: none;">
+                    <div class="logo-icon">
+                        <i class="fa-solid fa-plane fa-rotate-by" style="--fa-rotate-angle: -45deg;"></i>
+                    </div>
+                    <div>
+                        <div class="logo-text">Транспортное Агентство</div>
+                    </div>
+                </a>
+            </div>
+            <div class="nav-main-links">
+                <a href="/account" class="nav-link-item">Личный кабинет</a>
+                <a href="/" class="nav-link-item">Поиск билетов</a>
+                <a href="/popular" class="nav-link-item">Популярное</a>
+                <a href="/partners" class="nav-link-item">Партнеры</a>
+                <a href="/about" class="nav-link-item">О нас</a>
+                <a href="/support" class="nav-link-item active">Поддержка</a>
+            </div>
+            
+            <div class="user-actions">
+                {% if session.logged_in %}
+                    <a href="/account" class="user-profile">
+                        <div class="user-avatar">
+                            {{ (session.first_name or session.username)[:1]|upper }}
+                        </div>
+                        <div class="user-name">{{ session.first_name or session.username }}</div>
+                    </a>
+                    
+                    <a href="/logout" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> Выйти
+                    </a>
+                {% else %}
+                    <a href="/account" class="login-btn">
+                        <i class="fas fa-sign-in-alt"></i> Войти
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="support-container">
+        {% if session.logged_in %}
+            <div class="page-header">
+                <h1>Служба поддержки</h1>
+            </div>
+            <div class="support-section faq-section">
+                <h2 class="section-title">Частые вопросы</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i class="fas fa-chevron-right"></i>
+                        Как оплатить билет?
+                    </div>
+                    <div class="faq-answer">
+                        После бронирования билета запись появляется в личном кабинете пользователя. Для оплаты необходимо найти нужное бронирование и нажать на кнопку «Оплатить», после оплата происходит с помощью безопасной онлайн-кассы.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i class="fas fa-chevron-right"></i>
+                        Можно ли вернуть деньги за отмененный билет?
+                    </div>
+                    <div class="faq-answer">
+                        Возврат средств зависит от условий перевозчика. Обычно возврат осуществляется в течение 5-10 рабочих дней на карту, с которой была произведена оплата. Возврат возможен не познее 1 рабочего дня до даты перевозки.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i class="fas fa-chevron-right"></i>
+                        Как отменить бронирование?
+                    </div>
+                    <div class="faq-answer">
+                        До момента произведения оплаты, бронирование можно отменить в личном кабинете с помощью кнопку «Отменить» у нужного бронирования.
+                        Если вы хотите отменить бронирование после оплаты, то обратитесь в службу поддержки.
+                    </div>
+                </div>
+                
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i class="fas fa-chevron-right"></i>
+                        Как скачать электронный билет?
+                    </div>
+                    <div class="faq-answer">
+                        После успешной оплаты в личном кабинете появляется кнопка «Скачать билет» рядом с нужным бронированием. Билет будет доступен в формате PDF.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="support-section">
+                <h2 class="section-title">Обращение в службу поддержки</h2>
+                
+                {% if error %}
+                    <div class="error">{{ error }}</div>
+                {% endif %}
+                
+                {% if success %}
+                    <div class="success">{{ success }}</div>
+                {% endif %}
+                
+                <form method="POST" class="support-form">
+                    <div class="form-group">
+                        <label for="report">Опишите вашу проблему или вопрос:</label>
+                        <textarea 
+                            id="report" 
+                            name="report" 
+                            required
+                        >{% if request.form.report %}{{ request.form.report }}{% endif %}</textarea>
+                    </div>
+                    <div style="text-align: center;">
+                        <button type="submit" class="submit-btn">
+                            Отправить обращение
+                        </button>
+                    </div>
+                </form>
+            </div>
+        {% else %}
+            <div class="login-required">
+                <h2>Доступ к службе поддержки</h2>
+                <p>Для отправки обращения в службу поддержки необходимо авторизоваться в системе.</p>
+                
+                <div class="action-buttons">
+                    <a href="/account" class="btn btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> Войти в систему
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    const faqItem = this.parentElement;
+                    faqItem.classList.toggle('active');
+                });
+            });
+            const form = document.querySelector('.support-form');
+            const submitBtn = document.querySelector('.submit-btn');
+            if (form) {
+                form.addEventListener('submit', function() {
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

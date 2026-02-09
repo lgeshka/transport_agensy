@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Популярные направления</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+        }
+        
+        .popular-container {
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .page-header {
+            text-align: center;
+            margin: 0 0 30px 0;
+            padding: 0;
+        }
+        .page-header h1 {
+            color: #1a73e8;
+            margin: 0 0 15px 0;
+            font-size: 32px;
+        }
+        .popular-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 0 auto 30px auto;
+            padding: 30px;
+            width: 100%;
+            box-sizing: border-box;
+            max-width: 1200px;
+        }
+        .section-title {
+            color: #1a73e8;
+            font-size: 24px;
+            margin: 0 0 30px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1a73e8;
+            text-align: center;
+        }
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .destination-box {
+            border-radius: 8px;
+            min-height: 300px;
+            border: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            padding: 0;
+        }
+        .destination-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-color: #1a73e8;
+        }
+        .box-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 1;
+        }
+        .city-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            z-index: 2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.7);
+        }
+        
+        @media (max-width: 768px) {
+            .popular-container {
+                padding: 10px;
+            }
+            .popular-section {
+                padding: 20px;
+            }
+            .page-header h1 {
+                font-size: 28px;
+            }
+            .section-title {
+                font-size: 22px;
+                margin-bottom: 25px;
+            }
+            .destinations-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .destination-box {
+                min-height: 180px;
+            }
+            .city-label {
+                font-size: 16px;
+                padding: 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .popular-section {
+                padding: 15px;
+            }
+            .page-header h1 {
+                font-size: 24px;
+            }
+            .section-title {
+                font-size: 20px;
+            }
+            .destination-box {
+                min-height: 160px;
+            }
+            .city-label {
+                font-size: 15px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="travel-navbar">
+        <div class="nav-container">
+            <div class="logo-section">
+                <a href="/" style="display: flex; align-items: center; gap: 15px; text-decoration: none;">
+                    <div class="logo-icon">
+                        <i class="fa-solid fa-plane fa-rotate-by" style="--fa-rotate-angle: -45deg;"></i>
+                    </div>
+                    <div>
+                        <div class="logo-text">Транспортное Агентство</div>
+                    </div>
+                </a>
+            </div>
+            <div class="nav-main-links">
+                <a href="/account" class="nav-link-item">Личный кабинет</a>
+                <a href="/" class="nav-link-item">Поиск билетов</a>
+                <a href="/popular" class="nav-link-item active">Популярное</a>
+                <a href="/partners" class="nav-link-item">Партнеры</a>
+                <a href="/about" class="nav-link-item">О нас</a>
+                <a href="/support" class="nav-link-item">Поддержка</a>
+            </div>
+            <div class="user-actions">
+                {% if session.logged_in %}
+                    <a href="/account" class="user-profile">
+                        <div class="user-avatar">
+                            {{ (session.first_name or session.username)[:1]|upper }}
+                        </div>
+                        <div class="user-name">{{ session.first_name or session.username }}</div>
+                    </a>
+                    
+                    <a href="/logout" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> Выйти
+                    </a>
+                {% else %}
+                    <a href="/account" class="login-btn">
+                        <i class="fas fa-sign-in-alt"></i> Войти
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="popular-container">
+        <div class="page-header">
+            <h1>Популярные направления</h1>
+        </div>
+        
+        <div class="popular-section">
+            <div class="destinations-grid">
+                <div class="destination-box">
+                    <div class="box-background" style="background-image: url('{{ url_for('static', filename='images/destinations/moscow.jpg') }}');"></div>
+                    <div class="city-label">Москва</div>
+                </div>
+                <div class="destination-box">
+                    <div class="box-background" style="background-image: url('{{ url_for('static', filename='images/destinations/spb.jpg') }}');"></div>
+                    <div class="city-label">Санкт-Петербург</div>
+                </div>
+                <div class="destination-box">
+                    <div class="box-background" style="background-image: url('{{ url_for('static', filename='images/destinations/sochi.jpg') }}');"></div>
+                    <div class="city-label">Сочи</div>
+                </div>
+                <div class="destination-box">
+                    <div class="box-background" style="background-image: url('{{ url_for('static', filename='images/destinations/nn.jpg') }}');"></div>
+                    <div class="city-label">Нижний Новгород</div>
+                </div>     
+                <div class="destination-box">
+                    <div class="box-background" style="background-image: url('{{ url_for('static', filename='images/destinations/novosib.jpg') }}');"></div>
+                    <div class="city-label">Новосибирск</div>
+                </div>                            
+                <div class="destination-box">
+                    <div class="box-background" style="background-image: url('{{ url_for('static', filename='images/destinations/krasnoyarsk.jpg') }}');"></div>
+                    <div class="city-label">Красноярск</div>
+                </div>
+                <div class="destination-box">
+                    <div class="box-background" style="background-image: url('{{ url_for('static', filename='images/destinations/pk.jpg') }}');"></div>
+                    <div class="city-label">Петропавловск-Камчатский</div>
+                </div>                            
+                <div class="destination-box">
+                    <div class="box-background" style="background-image: url('{{ url_for('static', filename='images/destinations/vladivostok.jpg') }}');"></div>
+                    <div class="city-label">Владивосток</div>
+                </div>
+                <div class="destination-box">
+                    <div class="box-background" style="background-image: url('{{ url_for('static', filename='images/destinations/stambul.jpg') }}');"></div>
+                    <div class="city-label">Стамбул</div>
+                </div>
+                <div class="destination-box">
+                    <div class="box-background" style="background-image: url('{{ url_for('static', filename='images/destinations/antalia.jpg') }}');"></div>
+                    <div class="city-label">Анталья</div>
+                </div>
+                <div class="destination-box">
+                    <div class="box-background" style="background-image: url('{{ url_for('static', filename='images/destinations/minsk.jpg') }}');"></div>
+                    <div class="city-label">Минск</div>
+                </div>
+                <div class="destination-box">
+                    <div class="box-background" style="background-image: url('{{ url_for('static', filename='images/destinations/belgrad.jpg') }}');"></div>
+                    <div class="city-label">Белград</div>
+                </div>
+                <div class="destination-box">
+                    <div class="box-background" style="background-image: url('{{ url_for('static', filename='images/destinations/dubai.jpg') }}');"></div>
+                    <div class="city-label">Дубай</div>
+                </div>
+                <div class="destination-box">
+                    <div class="box-background" style="background-image: url('{{ url_for('static', filename='images/destinations/doha.jpg') }}');"></div>
+                    <div class="city-label">Доха</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

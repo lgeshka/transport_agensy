@@ -1,0 +1,274 @@
+/* Сброс стилей */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.travel-navbar {
+    background: white;
+    padding: 0;
+    width: 100%;
+    margin: 0;
+}
+html {
+    overflow-y: scroll; /* Всегда резервируем место для скроллбара, чтобы не было скачков */
+}
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 0;
+}
+
+.logo-icon {
+    background: linear-gradient(135deg, #1a73e8 0%, #6c8ef5 100%);
+    width: 60px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a73e8;
+    letter-spacing: -0.5px;
+}
+
+.logo-subtext {
+    font-size: 12px;
+    color: #666;
+    margin-top: -3px;
+}
+
+.nav-main-links {
+    display: flex;
+    gap: 5px;
+    flex: 1;
+    justify-content: center;
+    margin: 0 30px;
+    align-items: center;
+}
+
+.nav-link-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    padding: 0 20px;
+    height: 60px;
+    color: #444;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    position: relative;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.nav-link-item i {
+    display: none;
+}
+
+.nav-link-item span {
+    font-size: 14px;
+    font-weight: 600;
+    color: #444;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+}
+
+.nav-link-item:hover {
+    background-color: #f0f7ff;
+    transform: translateY(-2px);
+}
+
+.nav-link-item:hover span {
+    color: #1a73e8;
+}
+
+.nav-link-item.active {
+    background-color: #e8f0fe;
+    position: relative;
+}
+
+.nav-link-item.active span {
+    color: #1a73e8;
+}
+
+.nav-link-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 20%;
+    right: 20%;
+    height: 3px;
+    background-color: #1a73e8;
+    border-radius: 3px;
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 15px;
+    background-color: #f8f9fa;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.user-profile:hover {
+    background-color: #e8f0fe;
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #1a73e8 0%, #6c8ef5 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+}
+
+.user-name {
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+}
+
+.logout-btn {
+    background: none;
+    border: 1px solid #ddd;
+    padding: 8px 15px;
+    border-radius: 20px;
+    color: #666;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.logout-btn:hover {
+    background-color: #ffebee;
+    border-color: #f44336;
+    color: #f44336;
+}
+
+.login-btn {
+    background: linear-gradient(135deg, #1a73e8 0%, #6c8ef5 100%);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(26, 115, 232, 0.3);
+}
+
+/* Адаптивность для меню */
+@media (max-width: 992px) {
+    .nav-container {
+        flex-direction: column;
+        padding: 10px;
+    }
+    
+    .logo-section {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px 0;
+        position: relative;
+        left: 50px;
+    }
+    
+    .nav-main-links {
+        width: 100%;
+        margin: 10px 0;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .nav-link-item {
+        min-width: 80px;
+        padding: 10px 15px;
+    }
+    
+    .user-actions {
+        width: 100%;
+        justify-content: center;
+        padding: 10px 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-link-item span {
+        font-size: 12px;
+    }
+}
+.map-btn {
+    padding: 8px 20px;
+    margin: 0 5px;
+    border: 2px solid #1a73e8;
+    background-color: white;
+    color: #1a73e8;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.map-btn.active {
+    background-color: #1a73e8;
+    color: white;
+}
+
+.map-btn:hover {
+    background-color: #e8f0fe;
+}
+
+.map-btn.active:hover {
+    background-color: #0d62d9;
+}
+/* Центрирование формы фильтров */
+#searchForm {
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}

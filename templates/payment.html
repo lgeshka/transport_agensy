@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Оплата бронирования</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+        }
+        .payment-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            width: 400px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+            font-size: 14px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .card-row {
+            display: flex;
+            gap: 20px;
+        }
+        .card-row .form-group {
+            flex: 1;
+        }
+        .buttons-container {
+            width: 100%;
+            margin-top: 20px;
+        }
+        .pay-button, .back-button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            box-sizing: border-box;
+            text-align: center;
+            display: block;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .pay-button {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .pay-button:hover {
+            background-color: #45a049;
+        }
+        .pay-button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .back-button {
+            background-color: #666;
+            color: white;
+            padding: 10px;
+            font-size: 14px;
+        }
+        .back-button:hover {
+            background-color: #555;
+        }
+        .success-message {
+            text-align: center;
+            color: #4CAF50;
+            padding: 20px;
+            font-size: 18px;
+            display: none;
+        }
+        .error-message {
+            color: #f44336;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <h2>Оплата бронирования <span id="bookingId"></span></h2>
+        <div id="paymentForm">
+            <div class="form-group">
+                <label for="cardNumber">Номер карты</label>
+                <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCardNumber(this)">
+                <div class="error-message" id="cardNumberError"></div>
+            </div>
+            <div class="card-row">
+                <div class="form-group">
+                    <label for="expiryDate">Срок действия (MM/YY)</label>
+                    <input type="text" id="expiryDate" placeholder="12/25" maxlength="5" oninput="formatExpiryDate(this)">
+                    <div class="error-message" id="expiryDateError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="cvv">CVV</label>
+                    <input type="password" id="cvv" placeholder="123" maxlength="4" oninput="validateCVV(this)">
+                    <div class="error-message" id="cvvError"></div>
+                </div>
+            </div>
+            <div class="buttons-container">
+                <button class="pay-button" onclick="processPayment()" id="payButton">Оплатить</button>
+                <a href="/account" class="back-button">Вернуться в личный кабинет</a>
+            </div>
+        </div>
+        <div class="success-message" id="successMessage">
+            <h3>✅ Оплата бронирования прошла успешно!</h3>
+            <p>Статус вашего бронирования изменен на "оплачен".</p>
+            <a href="/account" class="back-button">Вернуться в личный кабинет</a>
+        </div>
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const bookingId = urlParams.get('booking_id');
+        if (bookingId) {
+            document.getElementById('bookingId').textContent = `№${bookingId}`;
+        } else {
+            alert('Не указан номер бронирования');
+            window.location.href = '/account';
+        }
+        function formatCardNumber(input) {
+            let value = input.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+            let formatted = '';
+            
+            for (let i = 0; i < value.length; i++) {
+                if (i > 0 && i % 4 === 0) {
+                    formatted += ' ';
+                }
+                formatted += value[i];
+            }
+            input.value = formatted.substring(0, 19);
+            const cardNumber = input.value.replace(/\s+/g, '');
+            const errorElement = document.getElementById('cardNumberError');
+            if (cardNumber.length < 16) {
+                errorElement.textContent = 'Номер карты должен содержать 16 цифр';
+                errorElement.style.display = 'block';
+            } else {
+                errorElement.style.display = 'none';
+            }
+        }
+        function formatExpiryDate(input) {
+            let value = input.value.replace(/[^0-9]/gi, '');
+            if (value.length >= 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            }
+            input.value = value.substring(0, 5);
+            const errorElement = document.getElementById('expiryDateError');
+            if (!value.includes('/') || value.length < 5) {
+                errorElement.textContent = 'Введите дату в формате MM/YY';
+                errorElement.style.display = 'block';
+            } else {
+                errorElement.style.display = 'none';
+            }
+        }
+        function validateCVV(input) {
+            const value = input.value.replace(/[^0-9]/gi, '');
+            input.value = value.substring(0, 4);
+            const errorElement = document.getElementById('cvvError');
+            if (value.length < 3) {
+                errorElement.textContent = 'CVV должен содержать 3-4 цифры';
+                errorElement.style.display = 'block';
+            } else {
+                errorElement.style.display = 'none';
+            }
+        }
+        function processPayment() {
+            const cardNumber = document.getElementById('cardNumber').value.replace(/\s+/g, '');
+            const expiryDate = document.getElementById('expiryDate').value;
+            const cvv = document.getElementById('cvv').value;
+            let isValid = true;
+            if (cardNumber.length !== 16) {
+                document.getElementById('cardNumberError').textContent = 'Номер карты должен содержать 16 цифр';
+                document.getElementById('cardNumberError').style.display = 'block';
+                isValid = false;
+            }
+            if (!expiryDate.includes('/') || expiryDate.length !== 5) {
+                document.getElementById('expiryDateError').textContent = 'Введите дату в формате MM/YY';
+                document.getElementById('expiryDateError').style.display = 'block';
+                isValid = false;
+            }
+            if (cvv.length < 3 || cvv.length > 4) {
+                document.getElementById('cvvError').textContent = 'CVV должен содержать 3-4 цифры';
+                document.getElementById('cvvError').style.display = 'block';
+                isValid = false;
+            }
+            if (!isValid) {
+                return;
+            }
+            const payButton = document.getElementById('payButton');
+            payButton.disabled = true;
+            payButton.textContent = 'Обработка...';
+            fetch('/pay_booking', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    booking_id: bookingId,
+                    card_number: cardNumber,
+                    expiry_date: expiryDate,
+                    cvv: cvv
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('paymentForm').style.display = 'none';
+                    document.getElementById('successMessage').style.display = 'block';
+                } else {
+                    alert(`Ошибка: ${data.error}`);
+                    payButton.disabled = false;
+                    payButton.textContent = 'Оплатить';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Ошибка при обработке платежа');
+                payButton.disabled = false;
+                payButton.textContent = 'Оплатить';
+            });
+        }
+    </script>
+</body>
+</html>
