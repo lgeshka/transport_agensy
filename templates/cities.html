@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Обслуживаемые направления</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+        
+        .cities-container {
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin: 0 0 30px 0;
+        }
+        
+        .page-header h1 {
+            color: #1a73e8;
+            margin: 0;
+            font-size: 32px;
+        }
+        
+        .search-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 0 auto 30px auto;
+            max-width: 600px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .search-box {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: #1a73e8;
+        }
+        
+        .search-box button {
+            padding: 10px 20px;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        .search-box button:hover {
+            background-color: #0d62d9;
+        }
+        
+        .search-box .clear-btn {
+            padding: 10px 20px;
+            background-color: #f8f9fa;
+            color: #666;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        .search-box .clear-btn:hover {
+            background-color: #e9ecef;
+        }
+        
+        .cities-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 0 auto;
+            padding: 20px;
+            max-width: 800px;
+        }
+        
+        
+        .cities-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .cities-list li {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .cities-list a {
+            display: block;
+            padding: 12px 15px;
+            color: #333;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+            font-size: 16px;
+        }
+        
+        .cities-list a:hover {
+            background-color: #f8f9fa;
+            color: #1a73e8;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-size: 16px;
+        }
+        
+        @media (max-width: 768px) {
+            .cities-container {
+                padding: 10px;
+            }
+            
+            .search-box {
+                flex-direction: column;
+            }
+            
+            .page-header h1 {
+                font-size: 28px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% include '_navbar.html' %}
+    
+    <div class="cities-container">
+        <div class="page-header">
+            <h1>Обслуживаемые направления</h1>
+        </div>
+        
+        <div class="search-section">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Поиск города..." value="{{ search_query or '' }}">
+                <button onclick="searchCities()">Найти</button>
+                <button onclick="clearSearch()" class="clear-btn">Сбросить</button>
+            </div>
+        </div>
+        
+        <div class="cities-section">
+            
+            {% if cities %}
+                <ul class="cities-list">
+                    {% for city in cities %}
+                        <li>
+                            <a href="https://ru.wikipedia.org/wiki/{{ city[0] }}" target="_blank">
+                                {{ city[0] }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div class="no-results">
+                    <p>Города не найдены</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <script>
+        function searchCities() {
+            const query = document.getElementById('searchInput').value.trim();
+            if (query) {
+                window.location.href = '/cities?search=' + encodeURIComponent(query);
+            } else {
+                window.location.href = '/cities';
+            }
+        }
+        
+        function clearSearch() {
+            window.location.href = '/cities';
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        searchCities();
+                    }
+                });
+            }
+        });
+    </script>
+    
+    {% include '_footer.html' %}
+</body>
+</html>

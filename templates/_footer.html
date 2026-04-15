@@ -1,0 +1,343 @@
+<footer class="site-footer">
+    <div class="footer-main">
+        <div class="footer-container">
+            <div class="footer-columns">
+                <div class="footer-col">
+                    <h3 class="footer-col-title">О компании</h3>
+                    <ul class="footer-links">
+                        <li><a href="/about">О нас</a></li>
+                        <li><a href="/popular">Популярные направления</a></li>
+                        <li><a href="/partners">Наши партнеры</a></li>
+                        <li><a href="/support">Поддержка</a></li>
+                        <li><a href="/account">Личный кабинет</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3 class="footer-col-title">Услуги</h3>
+                    <ul class="footer-links">
+                        <li><a href="/">Поиск билетов</a></li>
+                        <li><a href="/account">Управление бронированием</a></li>
+                        <li><a href="/cities">Обслуживаемые направления</a></li>
+                        <li><a href="/bronirovanie">Бронирование отелей</a></li>
+                        <li><a href="/status">Отслеживание рейса</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3 class="footer-col-title">Информация</h3>
+                    <ul class="footer-links">
+                        <li><a href="/howtobuy">Как купить билет</a></li>
+                        <li><a href="/ruls">Правила перевозок</a></li>
+                        <li><a href="/faq">Частые вопросы</a></li>
+                        <li><a href="/vacancy">Вакансии</a></li>
+                        <li><a href="/politica_conf">Политика конфиденциальности</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3 class="footer-col-title">Партнерам</h3>
+                    <ul class="footer-links">
+                        <li><a href="/partners">Компании-партнеры</a></li>
+                        <li><a href="/vip">ВИП-клиенты</a></li>
+                        <li><a href="/cargo">Грузовые перевозки</a></li>
+                        <li><a href="/connect_to_partner">Сотрудничество</a></li>
+                        <li><a href="/advertisement">Реклама на сайте</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <div class="footer-container">
+            <div class="footer-bottom-content">
+                <div class="footer-contact-info">
+                    <span class="footer-contact-item">
+                        <i class="fas fa-phone-alt"></i> +7 (900) 000-00-00
+                    </span>
+                    <span class="footer-contact-item">
+                        <i class="fas fa-envelope"></i> example@email.com
+                    </span>
+                    <span class="footer-contact-item">
+                        <i class="fas fa-map-marker-alt"></i> Юридический Адрес
+                    </span>
+                </div>
+                <div class="footer-copyright">
+                    <p>© 2025-2026 Транспортное Агентство. Все права защищены.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.page-wrapper, .account-container, .popular-container, .partners-container, 
+.support-container, .about-container, .travel-container, .whereisplane-container,
+.faq-container, .status-container, .animals-container, .howtobuy-container,
+.ruls-container, .vacancy-container, .politica-container {
+    flex: 1 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.site-footer {
+    background: linear-gradient(135deg, #1e88e5 0%, #64b5f6 100%);
+    color: white;
+    font-family: Arial, sans-serif;
+    width: 100%;
+    flex-shrink: 0;
+    margin-top: auto;
+    box-shadow: 0 -5px 20px rgba(30, 136, 229, 0.2);
+}
+
+.footer-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-contacts-bar {
+    background: linear-gradient(135deg, #1565c0 0%, #1e88e5 100%);
+    padding: 25px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.contacts-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+.contact-item {
+    text-align: center;
+    flex: 1;
+    min-width: 180px;
+}
+
+.callback-btn {
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.callback-btn:hover {
+    background: white;
+    color: #1e88e5;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+.footer-main {
+    padding: 50px 0 40px;
+}
+
+.footer-columns {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+}
+
+.footer-col-title {
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 25px 0;
+    padding-bottom: 12px;
+    border-bottom: 3px solid rgba(255,255,255,0.3);
+    position: relative;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.footer-col-title::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: white;
+    border-radius: 3px;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 12px;
+}
+
+.footer-links a {
+    color: rgba(255,255,255,0.9);
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 1.6;
+    transition: all 0.3s ease;
+    display: inline-block;
+    position: relative;
+    padding-left: 0;
+}
+
+.footer-links a:hover {
+    color: white;
+    transform: translateX(8px);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.footer-links a::before {
+    content: '›';
+    position: absolute;
+    left: -15px;
+    opacity: 0;
+    transition: all 0.3s ease;
+    font-size: 18px;
+    line-height: 1;
+}
+
+.footer-links a:hover::before {
+    opacity: 1;
+    left: -8px;
+}
+
+.footer-bottom {
+    background: linear-gradient(135deg, #1565c0 0%, #1976d2 100%);
+    padding: 25px 0;
+    border-top: 1px solid rgba(255,255,255,0.2);
+}
+
+.footer-bottom-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-contact-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.footer-contact-item {
+    color: rgba(255,255,255,0.95);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-contact-item i {
+    font-size: 16px;
+    color: white;
+}
+
+.footer-copyright p {
+    margin: 0;
+    color: rgba(255,255,255,0.8);
+    font-size: 13px;
+}
+
+@media (max-width: 992px) {
+    .footer-columns {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+    
+    .contacts-row {
+        gap: 15px;
+    }
+    
+    .contact-item {
+        min-width: 160px;
+    }
+}
+
+@media (max-width: 768px) {
+    .contacts-row {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .contact-item {
+        width: 100%;
+    }
+    
+    .footer-columns {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .footer-col {
+        text-align: center;
+    }
+    
+    .footer-col-title::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .footer-links a:hover {
+        transform: translateY(-2px);
+    }
+    
+    .footer-links a:hover::before {
+        display: none;
+    }
+    
+    .footer-bottom-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-contact-info {
+        justify-content: center;
+    }
+    
+}
+
+@media (max-width: 480px) {
+    .footer-container {
+        padding: 0 15px;
+    }
+    
+    .footer-main {
+        padding: 30px 0;
+    }
+    
+    .footer-contact-info {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+    
+    .callback-btn {
+        padding: 10px 25px;
+        font-size: 14px;
+    }
+}
+</style>

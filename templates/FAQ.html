@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Часто задаваемые вопросы</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+        
+        .faq-container {
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin: 0 0 30px 0;
+            padding: 0;
+        }
+        
+        .page-header h1 {
+            color: #1a73e8;
+            margin: 0 0 15px 0;
+            font-size: 32px;
+        }
+        
+        .page-header p {
+            color: #666;
+            margin: 0;
+            font-size: 16px;
+        }
+        
+        .faq-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 0 auto 30px auto;
+            padding: 30px;
+            width: 100%;
+            box-sizing: border-box;
+            max-width: 900px;
+        }
+        
+        .section-title {
+            color: #1a73e8;
+            font-size: 24px;
+            margin: 0 0 30px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1a73e8;
+            text-align: center;
+        }
+        
+        .faq-item {
+            margin-bottom: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .faq-item:hover {
+            border-color: #1a73e8;
+            box-shadow: 0 2px 8px rgba(26, 115, 232, 0.2);
+        }
+        
+        .faq-question {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            padding: 18px 25px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 600;
+            color: #333;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid transparent;
+        }
+        
+        .faq-question i {
+            color: #1a73e8;
+            font-size: 16px;
+            transition: transform 0.3s ease;
+            min-width: 16px;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(90deg);
+        }
+        
+        .faq-question:hover {
+            background: linear-gradient(135deg, #e8f0fe 0%, #f8f9fa 100%);
+            color: #1a73e8;
+        }
+        
+        .faq-answer {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
+            border-top: 0px solid #e0e0e0;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 20px 25px 20px 56px;
+            max-height: 300px;
+            border-top-width: 1px;
+        }
+        
+        .faq-answer p {
+            margin: 0;
+            color: #666;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .faq-container {
+                padding: 10px;
+            }
+            
+            .faq-section {
+                padding: 20px;
+            }
+            
+            .page-header h1 {
+                font-size: 28px;
+            }
+            
+            .section-title {
+                font-size: 22px;
+            }
+            
+            .faq-question {
+                padding: 15px 20px;
+                font-size: 15px;
+                gap: 12px;
+            }
+            
+            .faq-item.active .faq-answer {
+                padding: 15px 20px 15px 47px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .faq-section {
+                padding: 15px;
+            }
+            
+            .page-header h1 {
+                font-size: 24px;
+            }
+            
+            .faq-question {
+                padding: 12px 15px;
+                font-size: 14px;
+                gap: 10px;
+            }
+            
+            .faq-answer p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% include '_navbar.html' %}
+    
+    <div class="faq-container">
+       
+        <div class="faq-section">
+            <h2 class="section-title">Частые вопросы</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <i class="fas fa-chevron-right"></i>
+                    Как оплатить билет?
+                </div>
+                <div class="faq-answer">
+                    <p>После бронирования билета запись появляется в личном кабинете пользователя. Для оплаты необходимо найти нужное бронирование и нажать на кнопку «Оплатить», после оплата происходит с помощью безопасной онлайн-кассы.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <i class="fas fa-chevron-right"></i>
+                    Можно ли вернуть деньги за отмененный билет?
+                </div>
+                <div class="faq-answer">
+                    <p>Возврат средств зависит от условий перевозчика. Обычно возврат осуществляется в течение 5-10 рабочих дней на карту, с которой была произведена оплата. Возврат возможен не познее 1 рабочего дня до даты перевозки.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <i class="fas fa-chevron-right"></i>
+                    Как отменить бронирование?
+                </div>
+                <div class="faq-answer">
+                    <p>До момента произведения оплаты, бронирование можно отменить в личном кабинете с помощью кнопку «Отменить» у нужного бронирования. Если вы хотите отменить бронирование после оплаты, то обратитесь в службу поддержки.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <i class="fas fa-chevron-right"></i>
+                    Как скачать электронный билет?
+                </div>
+                <div class="faq-answer">
+                    <p>После успешной оплаты в личном кабинете появляется кнопка «Скачать билет» рядом с нужным бронированием. Билет будет доступен в формате PDF.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <i class="fas fa-chevron-right"></i>
+                    Что делать, если не получилось скачать электронный билет?
+                </div>
+                <div class="faq-answer">
+                    <p>Если не начинается загрузка файла электронного билета, то убедитесь что ваше интернет подключение стабильно. При возникновении проблем обратитесь в службу поддержки.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <i class="fas fa-chevron-right"></i>
+                    Можно ли изменить дату или время в уже оплаченном билете?
+                </div>
+                <div class="faq-answer">
+                    <p>Возможность изменения зависит от правил тарифа. Для уточнения информации обратитесь в службу поддержки или свяжитесь напрямую с перевозчиком.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function toggleFAQ(element) {
+            const faqItem = element.closest('.faq-item');
+            faqItem.classList.toggle('active');
+            const allFaqItems = document.querySelectorAll('.faq-item');
+            allFaqItems.forEach(item => {
+                if (item !== faqItem && item.classList.contains('active')) {
+                    item.classList.remove('active');
+                }
+            });
+        }
+    </script>
+    
+    {% include '_footer.html' %}
+</body>
+</html>

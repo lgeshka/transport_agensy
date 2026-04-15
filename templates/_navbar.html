@@ -1,0 +1,41 @@
+<div class="travel-navbar">
+    <div class="nav-container">
+        <div class="logo-section">
+            <a href="/" style="display: flex; align-items: center; gap: 15px; text-decoration: none;">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-plane fa-rotate-by" style="--fa-rotate-angle: -45deg;"></i>
+                </div>
+                <div>
+                    <div class="logo-text">Транспортное Агентство</div>
+                </div>
+            </a>
+        </div>
+        <div class="nav-main-links">
+            <a href="/account" class="nav-link-item {% if request.path == '/account' %}active{% endif %}">Личный кабинет</a>
+            <a href="/" class="nav-link-item {% if request.path == '/' %}active{% endif %}">Поиск билетов</a>
+            <a href="/popular" class="nav-link-item {% if request.path == '/popular' %}active{% endif %}">Популярное</a>
+            <a href="/partners" class="nav-link-item {% if request.path == '/partners' %}active{% endif %}">Партнеры</a>
+            <a href="/about" class="nav-link-item {% if request.path == '/about' %}active{% endif %}">О нас</a>
+            <a href="/support" class="nav-link-item {% if request.path == '/support' %}active{% endif %}">Поддержка</a>
+        </div>
+        
+        <div class="user-actions">
+            {% if session.logged_in %}
+                <a href="/account" class="user-profile">
+                    <div class="user-avatar">
+                        {{ (session.first_name or session.username)[:1]|upper }}
+                    </div>
+                    <div class="user-name">{{ session.first_name or session.username }}</div>
+                </a>
+                
+                <a href="/logout" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Выйти
+                </a>
+            {% else %}
+                <a href="/account" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Войти
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</div>

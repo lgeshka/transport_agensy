@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Статус рейса</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .status-container {
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin: 0 0 30px 0;
+        }
+        
+        .page-header h1 {
+            color: #1a73e8;
+            margin: 0;
+            font-size: 32px;
+        }
+        
+        .transport-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 0 auto 30px auto;
+            max-width: 600px;
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 12px 20px;
+            background-color: white;
+            border: 2px solid #1a73e8;
+            color: #1a73e8;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .tab-btn.active {
+            background-color: #1a73e8;
+            color: white;
+        }
+        
+        .main-frame {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 0 auto;
+            padding: 30px;
+            max-width: 800px;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .search-section {
+            padding: 20px;
+        }
+        
+        .search-box {
+            display: flex;
+            gap: 10px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: #1a73e8;
+        }
+        
+        .search-box button {
+            padding: 15px 30px;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .search-box button:hover {
+            background-color: #0d62d9;
+        }
+        
+        @media (max-width: 768px) {
+            .transport-tabs {
+                flex-direction: column;
+            }
+            .search-box {
+                flex-direction: column;
+            }
+            .search-box button {
+                width: 100%;
+            }
+            .page-header h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% include '_navbar.html' %}
+    
+    <div class="status-container">
+        <div class="page-header">
+            <h1>Статус рейса</h1>
+        </div>
+        
+        <div class="transport-tabs">
+            <button class="tab-btn active" onclick="switchTab('avia')">Авиа</button>
+            <button class="tab-btn" onclick="switchTab('railway')">ЖД</button>
+            <button class="tab-btn" onclick="switchTab('river')">Речной</button>
+        </div>
+        
+        <div class="main-frame">
+            <!-- Авиа вкладка -->
+            <div id="avia-content" class="tab-content active">
+                <div class="search-section">
+                    <div class="search-box">
+                        <input type="text" id="flightInput" placeholder="Номер рейса (SU123, DP651)">
+                        <button onclick="searchFlight()">Отследить</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ЖД вкладка -->
+            <div id="railway-content" class="tab-content">
+                <div class="search-section">
+                    <div class="search-box">
+                        <input type="text" id="trainInput" placeholder="Номер поезда (002А, 104М)">
+                        <button onclick="searchTrain()">Отследить</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Речная вкладка -->
+            <div id="river-content" class="tab-content">
+                <div class="search-section">
+                    <div style="text-align: center; padding: 20px; color: #666;">
+                        <i class="fas fa-ship"></i> Сервис в разработке
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            document.getElementById(tab + '-content').classList.add('active');
+        }
+        
+        function searchFlight() {
+            var flightNumber = document.getElementById('flightInput').value.trim();
+            if (flightNumber) {
+                window.open('https://www.flightradar24.com/' + flightNumber.replace(/\s+/g, '').toUpperCase(), '_blank');
+            } else {
+                window.open('https://www.flightradar24.com', '_blank');
+            }
+        }
+        
+        function searchTrain() {
+            var trainNumber = document.getElementById('trainInput').value.trim();
+            if (trainNumber) {
+                window.open('https://www.tutu.ru/poezda/search_train.php?train=' + encodeURIComponent(trainNumber), '_blank');
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('flightInput')?.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') searchFlight();
+            });
+            document.getElementById('trainInput')?.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') searchTrain();
+            });
+        });
+    </script>
+    
+    {% include '_footer.html' %}
+</body>
+</html>
