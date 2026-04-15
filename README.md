@@ -149,6 +149,7 @@ CREATE TABLE users (
 ```
 
 -- Таблица направлений (города)
+```
 CREATE TABLE directions (
     id SERIAL PRIMARY KEY,
     country VARCHAR(100),
@@ -157,6 +158,7 @@ CREATE TABLE directions (
     longitude NUMERIC(11,8),
     code VARCHAR(10)
 );
+```
 
 -- Таблица компаний-перевозчиков
 ```
