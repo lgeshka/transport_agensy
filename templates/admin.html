@@ -5,359 +5,136 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <style>
-        .admin-container {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #1a73e8;
-        }
-        
-        .admin-title {
-            color: #1a73e8;
-            margin: 0;
-            font-size: 28px;
-        }
-        
-        .admin-user-info {
-            color: #666;
-            font-size: 14px;
-        }
-        
-        .admin-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 10px;
-        }
-        
-        .admin-tab {
-            padding: 12px 25px;
-            background-color: #f8f9fa;
-            border: 1px solid #ddd;
-            border-radius: 5px 5px 0 0;
+        .tab-btn {
+            padding: 8px 16px;
             cursor: pointer;
+            border-radius: 20px;
+            border: 1px solid #1a73e8;
+            background-color: white;
+            color: #1a73e8;
             font-weight: 600;
-            color: #666;
             transition: all 0.3s ease;
-            border-bottom: none;
         }
-        
-        .admin-tab:hover {
-            background-color: #e9ecef;
-        }
-        
-        .admin-tab.active {
-            background-color: white;
-            color: #1a73e8;
-            border-color: #1a73e8;
-            border-bottom: 1px solid white;
-        }
-        
-        .tab-content {
-            display: none;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 25px;
-            margin-bottom: 30px;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        .section-title {
-            color: #1a73e8;
-            font-size: 22px;
-            margin: 0 0 25px 0;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #1a73e8;
-        }
-        
-        .filters-section {
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 25px;
-            border: 1px solid #e9ecef;
-        }
-        
-        .filters-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            align-items: flex-end;
-        }
-        
-        .filter-group {
-            display: flex;
-            flex-direction: column;
-            min-width: 200px;
-        }
-        
-        .filter-group label {
-            font-weight: 600;
-            color: #333;
-            font-size: 14px;
-            margin-bottom: 5px;
-        }
-        
-        .filter-group input,
-        .filter-group select {
-            padding: 10px 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-        
-        .filter-group input:focus,
-        .filter-group select:focus {
-            outline: none;
-            border-color: #1a73e8;
-        }
-        
-        .filter-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        
-        .filter-btn {
-            padding: 10px 20px;
-            background: linear-gradient(135deg, #1a73e8 0%, #6c8ef5 100%);
+        .tab-btn:hover {
+            background-color: #1a73e8;
             color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
         }
-        
-        .filter-btn:hover {
-            transform: translateY(-2px);
+        .tab-btn.active {
+            background-color: #1a73e8;
+            color: white;
         }
-        
-        .reset-btn {
-            padding: 10px 20px;
-            background-color: #f8f9fa;
-            color: #666;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        
-        .reset-btn:hover {
-            background-color: #e9ecef;
-        }
-        
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            margin-bottom: 30px;
-        }
-        
-        th, td {
-            padding: 12px 15px;
-            text-align: center;
-            border: 1px solid #ddd;
-        }
-        
         th {
-            background-color: #f2f2f2;
-            font-weight: 600;
-            color: #333;
             cursor: pointer;
+            user-select: none;
         }
-        
         th:hover {
             background-color: #e0e0e0;
         }
-        
-        .status-booked {
-            background-color: #FFFF00;
-            padding: 5px 10px;
-            border-radius: 3px;
-            font-weight: bold;
-            color: black;
-            display: inline-block;
-            min-width: 100px;
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 15px 0;
+            flex-wrap: wrap;
         }
-        
-        .status-paid {
-            background-color: #4CAF50;
+        .search-box input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            width: 180px;
+        }
+        .search-box button {
+            padding: 8px 16px;
+            background-color: #1a73e8;
             color: white;
-            padding: 5px 10px;
-            border-radius: 3px;
-            font-weight: bold;
-            display: inline-block;
-            min-width: 100px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
-        
-        .status-canceled {
+        .search-box button:hover {
+            background-color: #0d62d9;
+        }
+        .cancel-btn {
+            padding: 6px 12px;
             background-color: #f44336;
             color: white;
-            padding: 5px 10px;
-            border-radius: 3px;
-            font-weight: bold;
-            display: inline-block;
-            min-width: 100px;
-        }
-        
-        .admin-badge {
-            background-color: #2196F3;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 3px;
-            display: inline-block;
-        }
-        
-        .user-badge {
-            background-color: #9E9E9E;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 3px;
-            display: inline-block;
-        }
-        
-        .action-btn {
-            padding: 8px 15px;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
             font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
         }
-        
-        .cancel-btn {
-            background-color: #f44336;
-            color: white;
-        }
-        
         .cancel-btn:hover {
             background-color: #d32f2f;
         }
-        
-        .count-badge {
-            background-color: #1a73e8;
-            color: white;
-            padding: 3px 8px;
-            border-radius: 10px;
-            font-size: 12px;
-            margin-left: 8px;
-        }
-        
-        .no-data {
-            text-align: center;
-            padding: 40px;
-            color: #666;
-            font-size: 16px;
-            background-color: #f8f9fa;
+        select {
+            padding: 5px;
             border-radius: 5px;
+            border: 1px solid #ddd;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
     {% include '_navbar.html' %}
     
-    <div class="admin-container">
-        <div class="admin-header">
-            <h1 class="admin-title">Административная панель</h1>
-            <div class="admin-user-info">
-                Вы вошли как: <strong>{{ session.username }}</strong> (Администратор)
-            </div>
+    <div style="padding: 80px 20px 20px 20px;">
+        <div style="display: flex; gap: 10px; margin-bottom: 20px; margin-left: 5%;">
+            <button class="tab-btn" onclick="showPage(1)">Таблица бронирований</button>
+            <button class="tab-btn" onclick="showPage(2)">Таблица пользователей</button>
+            <button class="tab-btn" onclick="showPage(3)">Обращения</button>
         </div>
         
-        <div class="admin-tabs">
-            <button class="admin-tab active" onclick="switchTab('bookings')" id="bookings-tab">
-                Бронирования
-                <span class="count-badge" id="bookings-count">{{ bookings|length }}</span>
-            </button>
-            <button class="admin-tab" onclick="switchTab('logs')" id="logs-tab">
-                История входов
-                <span class="count-badge" id="logs-count">{{ logs|length }}</span>
-            </button>
-            <button class="admin-tab" onclick="switchTab('reports')" id="reports-tab">
-                Обращения в поддержку
-                <span class="count-badge">{{ reports|length }}</span>
-            </button>
-        </div>
-        
-        <div class="tab-content active" id="bookings-content">
-            <h2 class="section-title">Таблица бронирований</h2>
-            <div class="filters-section">
-                <div class="filters-row">
-                    <div class="filter-group">
-                        <label for="filter-booking-id">ID бронирования:</label>
-                        <input type="text" id="filter-booking-id">
-                    </div>
-                    <div class="filter-group">
-                        <label for="filter-route-number">Номер рейса:</label>
-                        <input type="text" id="filter-route-number">
-                    </div>
-                    <div class="filter-group">
-                        <label for="filter-status">Статус:</label>
-                        <select id="filter-status">
-                            <option value="">Любой</option>
-                            <option value="забронирован">Забронирован</option>
-                            <option value="оплачен">Оплачен</option>
-                            <option value="отменен">Отменен</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="filter-buttons">
-                    <button class="filter-btn" onclick="applyFilters()">Применить фильтры</button>
-                    <button class="reset-btn" onclick="resetFilters()">Сбросить</button>
-                </div>
+        <!-- Страница 1: Таблица бронирований -->
+        <div id="page1" style="min-height: 400px; padding: 20px; width: 100%; box-sizing: border-box;">
+            <div class="search-box">
+                <input type="text" id="searchBookingId" placeholder="ID бронирования">
+                <input type="text" id="searchLogin" placeholder="Логин пользователя">
+                <input type="text" id="searchRouteNumber" placeholder="Номер рейса">
+                <button onclick="searchBookings()">Поиск</button>
+                <button onclick="resetSearch()">Сбросить</button>
             </div>
             
-            <table id="bookings-table">
+            <table id="bookingsTable" style="width: 100%; border-collapse: collapse;">
                 <thead>
-                    <tr>
-                        <th onclick="sortBookings(0)">ID брони</th>
-                        <th onclick="sortBookings(1)">Номер рейса</th>
-                        <th onclick="sortBookings(2)">Маршрут</th>
-                        <th onclick="sortBookings(3)">Дата</th>
-                        <th onclick="sortBookings(4)">Стоимость</th>
-                        <th onclick="sortBookings(5)">Статус</th>
-                        <th onclick="sortBookings(6)">Дата создания</th>
-                        <th>Действия</th>
+                    <tr style="background-color: #f2f2f2;">
+                        <th onclick="sortTable(0)" style="border: 1px solid #ddd; padding: 8px; text-align: center;">ID брони</th>
+                        <th onclick="sortTable(1)" style="border: 1px solid #ddd; padding: 8px; text-align: center;">Пользователь</th>
+                        <th onclick="sortTable(2)" style="border: 1px solid #ddd; padding: 8px; text-align: center;">Номер рейса</th>
+                        <th onclick="sortTable(3)" style="border: 1px solid #ddd; padding: 8px; text-align: center;">Откуда</th>
+                        <th onclick="sortTable(4)" style="border: 1px solid #ddd; padding: 8px; text-align: center;">Куда</th>
+                        <th onclick="sortTable(5)" style="border: 1px solid #ddd; padding: 8px; text-align: center;">Дата</th>
+                        <th onclick="sortTable(6)" style="border: 1px solid #ddd; padding: 8px; text-align: center;">Цена</th>
+                        <th onclick="sortTable(7)" style="border: 1px solid #ddd; padding: 8px; text-align: center;">Статус</th>
+                        <th onclick="sortTable(8)" style="border: 1px solid #ddd; padding: 8px; text-align: center;">Дата брони</th>
+                        <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Действие</th>
                     </tr>
                 </thead>
-                <tbody id="bookings-tbody">
+                <tbody id="bookingsBody">
                     {% for booking in bookings %}
-                    <tr>
-                        <td>{{ booking[0] }}</td>
-                        <td>{{ booking[3] }}</td>
-                        <td>{{ booking[4] }} → {{ booking[5] }}</td>
-                        <td>{{ booking[6] }}</td>
-                        <td>{{ booking[9] }} руб.</td>
-                        <td>
-                            {% if booking[10] == 'забронирован' %}
-                                <span class="status-booked">{{ booking[10] }}</span>
-                            {% elif booking[10] == 'оплачен' %}
-                                <span class="status-paid">{{ booking[10] }}</span>
+                    <tr class="booking-row" data-booking-id="{{ booking[0] }}" data-login="{{ booking[1]|lower }}" data-route="{{ booking[3]|lower }}">
+                        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">{{ booking[0] }}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">{{ booking[1] }}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">{{ booking[3] }}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">{{ booking[4] }}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">{{ booking[5] }}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">{{ booking[6] }}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">{{ booking[9] }} руб.</td>
+                        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
+                            {% if booking[10] == 'оплачен' %}
+                                <span style="background-color: #4CAF50; color: white; padding: 5px 12px; border-radius: 15px; display: inline-block; font-size: 13px;">оплачен</span>
+                            {% elif booking[10] == 'забронирован' %}
+                                <span style="background-color: #FFC107; color: #333; padding: 5px 12px; border-radius: 15px; display: inline-block; font-size: 13px;">забронирован</span>
                             {% elif booking[10] == 'отменен' %}
-                                <span class="status-canceled">{{ booking[10] }}</span>
+                                <span style="background-color: #f44336; color: white; padding: 5px 12px; border-radius: 15px; display: inline-block; font-size: 13px;">отменен</span>
                             {% else %}
-                                {{ booking[10] }}
+                                <span style="background-color: #9E9E9E; color: white; padding: 5px 12px; border-radius: 15px; display: inline-block; font-size: 13px;">{{ booking[10] }}</span>
                             {% endif %}
                         </td>
-                        <td>{{ booking[11] }}</td>
-                        <td>
+                        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">{{ booking[11] }}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
                             {% if booking[10] != 'отменен' %}
-                                <button class="action-btn cancel-btn" onclick="adminCancelBooking('{{ booking[0] }}')">Отменить</button>
+                                <button class="cancel-btn" onclick="cancelBooking('{{ booking[0] }}')">Отменить</button>
                             {% else %}
                                 <span style="color: #999;">Отменено</span>
                             {% endif %}
@@ -366,268 +143,141 @@
                     {% endfor %}
                 </tbody>
             </table>
-            
-            {% if not bookings %}
-                <div class="no-data">Нет активных бронирований</div>
-            {% endif %}
         </div>
         
-        <div class="tab-content" id="logs-content">
-            <h2 class="section-title">История входов пользователей</h2>
-            <div class="filters-section">
-                <div class="filters-row">
-                    <div class="filter-group">
-                        <label for="filter-login">Логин пользователя:</label>
-                        <input type="text" id="filter-login">
-                    </div>
-                    <div class="filter-group">
-                        <label for="filter-user-type">Тип пользователя:</label>
-                        <select id="filter-user-type">
-                            <option value="">Любой</option>
-                            <option value="admin">Администратор</option>
-                            <option value="user">Клиент</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="filter-buttons">
-                    <button class="filter-btn" onclick="applyLogFilters()">Применить</button>
-                    <button class="reset-btn" onclick="resetLogFilters()">Сбросить</button>
-                </div>
+        <!-- Страница 2: Таблица пользователей -->
+        <div id="page2" style="min-height: 400px; padding: 20px; width: 100%; box-sizing: border-box; display: none;">
+            <div class="search-box">
+                <input type="text" id="searchUserId" placeholder="ID пользователя">
+                <input type="text" id="searchUserLogin" placeholder="Логин">
+                <input type="text" id="searchUserEmail" placeholder="Email">
+                <button onclick="searchUsers()">Поиск</button>
+                <button onclick="resetUserSearch()">Сбросить</button>
             </div>
             
-            {% if logs %}
-                <table id="logs-table">
-                    <thead>
-                        <tr>
-                            <th onclick="sortLogs(0)">ID записи</th>
-                            <th onclick="sortLogs(1)">Логин</th>
-                            <th onclick="sortLogs(2)">Тип пользователя</th>
-                            <th onclick="sortLogs(3)">Время входа</th>
-                        </tr>
-                    </thead>
-                    <tbody id="logs-tbody">
-                        {% for log in logs %}
-                        <tr>
-                            <td>{{ log[0] }}</td>
-                            <td>{{ log[1] }}</td>
-                            <td>
-                                {% if log[3] %}
-                                    <span class="admin-badge">Администратор</span>
-                                {% else %}
-                                    <span class="user-badge">Клиент</span>
-                                {% endif %}
-                            </td>
-                            <td>{{ log[4] }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            {% else %}
-                <div class="no-data">Нет данных о входах пользователей</div>
-            {% endif %}
+            <table id="usersTable" style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background-color: #f2f2f2;">
+                        <th onclick="sortUsers(0)" style="border: 1px solid #ddd; padding: 8px; text-align: center;">ID</th>
+                        <th onclick="sortUsers(1)" style="border: 1px solid #ddd; padding: 8px; text-align: center;">Логин</th>
+                        <th onclick="sortUsers(2)" style="border: 1px solid #ddd; padding: 8px; text-align: center;">Email</th>
+                        <th onclick="sortUsers(3)" style="border: 1px solid #ddd; padding: 8px; text-align: center;">Дата регистрации</th>
+                        <th onclick="sortUsers(4)" style="border: 1px solid #ddd; padding: 8px; text-align: center;">Админ</th>
+                    </tr>
+                </thead>
+                <tbody id="usersBody">
+                    {% for user in users %}
+                    <tr class="user-row" data-user-id="{{ user[0] }}" data-user-login="{{ user[1]|lower }}" data-user-email="{{ user[2]|lower }}">
+                        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">{{ user[0] }}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">{{ user[1] }}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">{{ user[2] }}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">{{ user[3] }}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
+                            {% if user[4] %}
+                                <span style="background-color: #1a73e8; color: white; padding: 5px 12px; border-radius: 15px; display: inline-block; font-size: 13px;">Да</span>
+                            {% else %}
+                                <span style="background-color: #9E9E9E; color: white; padding: 5px 12px; border-radius: 15px; display: inline-block; font-size: 13px;">Нет</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
         
-        <div class="tab-content" id="reports-content">
-            <h2 class="section-title">Обращения в службу поддержки</h2>
-            {% if reports %}
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID обращения</th>
-                            <th>Пользователь</th>
-                            <th>Текст обращения</th>
-                            <th>Дата создания</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for report in reports %}
-                        <tr>
-                            <td>{{ report[0] }}</td>
-                            <td>{{ report[2] }}</td>
-                            <td style="max-width: 300px; word-wrap: break-word;">{{ report[3] }}</td>
-                            <td>{{ report[4] }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            {% else %}
-                <div class="no-data">Нет обращений в службу поддержки</div>
-            {% endif %}
+        <!-- Страница 3: Обращения -->
+        <div id="page3" style="min-height: 400px; padding: 20px; width: 100%; box-sizing: border-box; display: none;">
+            <div class="search-box">
+                <input type="text" id="searchReportId" placeholder="ID обращения">
+                <input type="text" id="searchReportUser" placeholder="Пользователь">
+                <select id="searchReportStatus">
+                    <option value="">Любой статус</option>
+                    <option value="В процессе">В процессе</option>
+                    <option value="Завершен">Завершен</option>
+                    <option value="Незавершен">Незавершен</option>
+                </select>
+                <button onclick="searchReports()">Поиск</button>
+                <button onclick="resetReportSearch()">Сбросить</button>
+            </div>
+            
+            <table id="reportsTable" style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background-color: #f2f2f2;">
+                        <th onclick="sortReports(0)" style="border: 1px solid #ddd; padding: 8px; text-align: center;">ID обращения</th>
+                        <th onclick="sortReports(1)" style="border: 1px solid #ddd; padding: 8px; text-align: center;">Пользователь</th>
+                        <th onclick="sortReports(2)" style="border: 1px solid #ddd; padding: 8px; text-align: center;">Email</th>
+                        <th onclick="sortReports(3)" style="border: 1px solid #ddd; padding: 8px; text-align: center;">Текст обращения</th>
+                        <th onclick="sortReports(4)" style="border: 1px solid #ddd; padding: 8px; text-align: center;">Время создания</th>
+                        <th onclick="sortReports(5)" style="border: 1px solid #ddd; padding: 8px; text-align: center;">Статус</th>
+                        <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Изменить</th>
+                    </tr>
+                </thead>
+                <tbody id="reportsBody">
+                    {% for report in reports %}
+                    <tr class="report-row" data-report-id="{{ report[0] }}" data-report-user="{{ report[2]|lower }}" data-report-status="{{ report[6]|lower }}">
+                        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">{{ report[0] }}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">{{ report[2] }}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">{{ report[3] }}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">{{ report[4] }}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">{{ report[5] }}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
+                            {% if report[6] == 'Завершен' %}
+                                <span style="background-color: #4CAF50; color: white; padding: 5px 12px; border-radius: 15px; display: inline-block; font-size: 13px;">Завершен</span>
+                            {% elif report[6] == 'В процессе' %}
+                                <span style="background-color: #FFC107; color: #333; padding: 5px 12px; border-radius: 15px; display: inline-block; font-size: 13px;">В процессе</span>
+                            {% elif report[6] == 'Незавершен' %}
+                                <span style="background-color: #f44336; color: white; padding: 5px 12px; border-radius: 15px; display: inline-block; font-size: 13px;">Незавершен</span>
+                            {% else %}
+                                <span style="background-color: #9E9E9E; color: white; padding: 5px 12px; border-radius: 15px; display: inline-block; font-size: 13px;">{{ report[6] }}</span>
+                            {% endif %}
+                        </td>
+                        <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
+                            <select onchange="changeReportStatus({{ report[0] }}, this.value)">
+                                <option value="В процессе" {% if report[6] == 'В процессе' %}selected{% endif %}>В процессе</option>
+                                <option value="Завершен" {% if report[6] == 'Завершен' %}selected{% endif %}>Завершен</option>
+                                <option value="Незавершен" {% if report[6] == 'Незавершен' %}selected{% endif %}>Незавершен</option>
+                            </select>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
+        
+        <!-- Страница 4: История входов -->
+        
     </div>
     
     <script>
-        const allBookings = [
-            {% for booking in bookings %}
-            {
-                id: "{{ booking[0] }}",
-                routeNumber: "{{ booking[3] }}",
-                departure: "{{ booking[4] }}",
-                arrival: "{{ booking[5] }}",
-                date: "{{ booking[6] }}",
-                price: "{{ booking[9] }}",
-                status: "{{ booking[10] }}",
-                createdAt: "{{ booking[11] }}"
-            },
-            {% endfor %}
-        ];
+        let sortDirection = {};
+        let userSortDirection = {};
+        let reportSortDirection = {};
+        let logSortDirection = {};
         
-        const allLogs = [
-            {% for log in logs %}
-            {
-                id: "{{ log[0] }}",
-                login: "{{ log[1] }}",
-                isAdmin: {{ 'true' if log[3] else 'false' }},
-                loginTime: "{{ log[4] }}"
-            },
-            {% endfor %}
-        ];
-        
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelectorAll('.admin-tab').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            document.getElementById(tabName + '-content').classList.add('active');
-            document.getElementById(tabName + '-tab').classList.add('active');
-        }
-        
-        function applyFilters() {
-            const bookingId = document.getElementById('filter-booking-id').value.trim().toLowerCase();
-            const routeNumber = document.getElementById('filter-route-number').value.trim().toLowerCase();
-            const status = document.getElementById('filter-status').value;
-            
-            let filteredBookings = allBookings;
-            
-            if (bookingId) {
-                filteredBookings = filteredBookings.filter(b => b.id.toLowerCase().includes(bookingId));
-            }
-            if (routeNumber) {
-                filteredBookings = filteredBookings.filter(b => b.routeNumber.toLowerCase().includes(routeNumber));
-            }
-            if (status) {
-                filteredBookings = filteredBookings.filter(b => b.status === status);
-            }
-            
-            renderFilteredBookings(filteredBookings);
-            document.getElementById('bookings-count').textContent = filteredBookings.length;
-        }
-        
-        function resetFilters() {
-            document.getElementById('filter-booking-id').value = '';
-            document.getElementById('filter-route-number').value = '';
-            document.getElementById('filter-status').value = '';
-            renderFilteredBookings(allBookings);
-            document.getElementById('bookings-count').textContent = allBookings.length;
-        }
-        
-        function applyLogFilters() {
-            const login = document.getElementById('filter-login').value.trim().toLowerCase();
-            const userType = document.getElementById('filter-user-type').value;
-            
-            let filteredLogs = allLogs;
-            
-            if (login) {
-                filteredLogs = filteredLogs.filter(l => l.login.toLowerCase().includes(login));
-            }
-            if (userType === 'admin') {
-                filteredLogs = filteredLogs.filter(l => l.isAdmin === true);
-            } else if (userType === 'user') {
-                filteredLogs = filteredLogs.filter(l => l.isAdmin === false);
-            }
-            
-            renderFilteredLogs(filteredLogs);
-            document.getElementById('logs-count').textContent = filteredLogs.length;
-        }
-        
-        function resetLogFilters() {
-            document.getElementById('filter-login').value = '';
-            document.getElementById('filter-user-type').value = '';
-            renderFilteredLogs(allLogs);
-            document.getElementById('logs-count').textContent = allLogs.length;
-        }
-        
-        function renderFilteredBookings(bookings) {
-            const tbody = document.getElementById('bookings-tbody');
-            tbody.innerHTML = '';
-            
-            if (bookings.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 30px;">Бронирований не найдено</td></tr>';
-                return;
-            }
-            
-            bookings.forEach(booking => {
-                const row = document.createElement('tr');
-                let statusBadge = '';
-                if (booking.status === 'забронирован') {
-                    statusBadge = `<span class="status-booked">${booking.status}</span>`;
-                } else if (booking.status === 'оплачен') {
-                    statusBadge = `<span class="status-paid">${booking.status}</span>`;
-                } else if (booking.status === 'отменен') {
-                    statusBadge = `<span class="status-canceled">${booking.status}</span>`;
-                } else {
-                    statusBadge = booking.status;
-                }
-                
-                let actionButton = booking.status !== 'отменен' 
-                    ? `<button class="action-btn cancel-btn" onclick="adminCancelBooking('${booking.id}')">Отменить</button>`
-                    : `<span style="color: #999;">Отменено</span>`;
-                
-                row.innerHTML = `
-                    <td>${booking.id}</td>
-                    <td>${booking.routeNumber}</td>
-                    <td>${booking.departure} → ${booking.arrival}</td>
-                    <td>${booking.date}</td>
-                    <td>${booking.price} руб.</td>
-                    <td>${statusBadge}</td>
-                    <td>${booking.createdAt}</td>
-                    <td>${actionButton}</td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-        
-        function renderFilteredLogs(logs) {
-            const tbody = document.getElementById('logs-tbody');
-            tbody.innerHTML = '';
-            
-            if (logs.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 30px;">Записей не найдено</td></tr>';
-                return;
-            }
-            
-            logs.forEach(log => {
-                const row = document.createElement('tr');
-                const userTypeBadge = log.isAdmin 
-                    ? `<span class="admin-badge">Администратор</span>`
-                    : `<span class="user-badge">Клиент</span>`;
-                
-                row.innerHTML = `
-                    <td>${log.id}</td>
-                    <td>${log.login}</td>
-                    <td>${userTypeBadge}</td>
-                    <td>${log.loginTime}</td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-        
-        function sortBookings(columnIndex) {
-            const tbody = document.getElementById('bookings-tbody');
+        // Сортировка для бронирований
+        function sortTable(colIndex) {
+            const tbody = document.getElementById('bookingsBody');
             const rows = Array.from(tbody.querySelectorAll('tr'));
             
-            rows.sort((rowA, rowB) => {
-                const cellA = rowA.cells[columnIndex].textContent.trim();
-                const cellB = rowB.cells[columnIndex].textContent.trim();
+            if (!sortDirection[colIndex]) {
+                sortDirection[colIndex] = 'asc';
+            } else {
+                sortDirection[colIndex] = sortDirection[colIndex] === 'asc' ? 'desc' : 'asc';
+            }
+            
+            rows.sort((a, b) => {
+                let aVal = a.cells[colIndex].textContent.trim();
+                let bVal = b.cells[colIndex].textContent.trim();
                 
-                if (columnIndex === 0 || columnIndex === 4) {
-                    const numA = parseFloat(cellA) || 0;
-                    const numB = parseFloat(cellB) || 0;
-                    return numA - numB;
+                if (colIndex === 0 || colIndex === 6) {
+                    aVal = parseFloat(aVal) || 0;
+                    bVal = parseFloat(bVal) || 0;
+                }
+                
+                if (sortDirection[colIndex] === 'asc') {
+                    return aVal > bVal ? 1 : -1;
                 } else {
-                    return cellA.localeCompare(cellB, 'ru');
+                    return aVal < bVal ? 1 : -1;
                 }
             });
             
@@ -635,20 +285,30 @@
             rows.forEach(row => tbody.appendChild(row));
         }
         
-        function sortLogs(columnIndex) {
-            const tbody = document.getElementById('logs-tbody');
+        // Сортировка для пользователей
+        function sortUsers(colIndex) {
+            const tbody = document.getElementById('usersBody');
             const rows = Array.from(tbody.querySelectorAll('tr'));
             
-            rows.sort((rowA, rowB) => {
-                const cellA = rowA.cells[columnIndex].textContent.trim();
-                const cellB = rowB.cells[columnIndex].textContent.trim();
+            if (!userSortDirection[colIndex]) {
+                userSortDirection[colIndex] = 'asc';
+            } else {
+                userSortDirection[colIndex] = userSortDirection[colIndex] === 'asc' ? 'desc' : 'asc';
+            }
+            
+            rows.sort((a, b) => {
+                let aVal = a.cells[colIndex].textContent.trim();
+                let bVal = b.cells[colIndex].textContent.trim();
                 
-                if (columnIndex === 0) {
-                    const numA = parseFloat(cellA) || 0;
-                    const numB = parseFloat(cellB) || 0;
-                    return numA - numB;
+                if (colIndex === 0) {
+                    aVal = parseFloat(aVal) || 0;
+                    bVal = parseFloat(bVal) || 0;
+                }
+                
+                if (userSortDirection[colIndex] === 'asc') {
+                    return aVal > bVal ? 1 : -1;
                 } else {
-                    return cellA.localeCompare(cellB, 'ru');
+                    return aVal < bVal ? 1 : -1;
                 }
             });
             
@@ -656,10 +316,217 @@
             rows.forEach(row => tbody.appendChild(row));
         }
         
-        function adminCancelBooking(bookingId) {
-            if (!confirm(`Отменить бронирование №${bookingId}?`)) return;
+        // Сортировка для обращений
+        function sortReports(colIndex) {
+            const tbody = document.getElementById('reportsBody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
             
-            fetch('/cancel_booking', {
+            if (!reportSortDirection[colIndex]) {
+                reportSortDirection[colIndex] = 'asc';
+            } else {
+                reportSortDirection[colIndex] = reportSortDirection[colIndex] === 'asc' ? 'desc' : 'asc';
+            }
+            
+            rows.sort((a, b) => {
+                let aVal = a.cells[colIndex].textContent.trim();
+                let bVal = b.cells[colIndex].textContent.trim();
+                
+                if (colIndex === 0) {
+                    aVal = parseFloat(aVal) || 0;
+                    bVal = parseFloat(bVal) || 0;
+                }
+                
+                if (reportSortDirection[colIndex] === 'asc') {
+                    return aVal > bVal ? 1 : -1;
+                } else {
+                    return aVal < bVal ? 1 : -1;
+                }
+            });
+            
+            tbody.innerHTML = '';
+            rows.forEach(row => tbody.appendChild(row));
+        }
+        
+        // Сортировка для логов
+        function sortLogs(colIndex) {
+            const tbody = document.getElementById('logsBody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            
+            if (!logSortDirection[colIndex]) {
+                logSortDirection[colIndex] = 'asc';
+            } else {
+                logSortDirection[colIndex] = logSortDirection[colIndex] === 'asc' ? 'desc' : 'asc';
+            }
+            
+            rows.sort((a, b) => {
+                let aVal = a.cells[colIndex].textContent.trim();
+                let bVal = b.cells[colIndex].textContent.trim();
+                
+                if (colIndex === 0) {
+                    aVal = parseFloat(aVal) || 0;
+                    bVal = parseFloat(bVal) || 0;
+                }
+                
+                if (logSortDirection[colIndex] === 'asc') {
+                    return aVal > bVal ? 1 : -1;
+                } else {
+                    return aVal < bVal ? 1 : -1;
+                }
+            });
+            
+            tbody.innerHTML = '';
+            rows.forEach(row => tbody.appendChild(row));
+        }
+        
+        // Поиск для бронирований
+        function searchBookings() {
+            const bookingId = document.getElementById('searchBookingId').value.trim();
+            const login = document.getElementById('searchLogin').value.trim().toLowerCase();
+            const routeNumber = document.getElementById('searchRouteNumber').value.trim().toLowerCase();
+            const rows = document.querySelectorAll('#bookingsBody tr');
+            
+            rows.forEach(row => {
+                const bookingIdAttr = row.getAttribute('data-booking-id');
+                const loginAttr = row.getAttribute('data-login');
+                const routeAttr = row.getAttribute('data-route');
+                let show = true;
+                
+                if (bookingId && bookingIdAttr !== bookingId) {
+                    show = false;
+                }
+                if (login && !loginAttr.includes(login)) {
+                    show = false;
+                }
+                if (routeNumber && !routeAttr.includes(routeNumber)) {
+                    show = false;
+                }
+                
+                row.style.display = show ? '' : 'none';
+            });
+        }
+        
+        function resetSearch() {
+            document.getElementById('searchBookingId').value = '';
+            document.getElementById('searchLogin').value = '';
+            document.getElementById('searchRouteNumber').value = '';
+            const rows = document.querySelectorAll('#bookingsBody tr');
+            rows.forEach(row => {
+                row.style.display = '';
+            });
+        }
+        
+        // Поиск для пользователей
+        function searchUsers() {
+            const userId = document.getElementById('searchUserId').value.trim();
+            const login = document.getElementById('searchUserLogin').value.trim().toLowerCase();
+            const email = document.getElementById('searchUserEmail').value.trim().toLowerCase();
+            const rows = document.querySelectorAll('#usersBody tr');
+            
+            rows.forEach(row => {
+                const userIdAttr = row.getAttribute('data-user-id');
+                const loginAttr = row.getAttribute('data-user-login');
+                const emailAttr = row.getAttribute('data-user-email');
+                let show = true;
+                
+                if (userId && userIdAttr !== userId) {
+                    show = false;
+                }
+                if (login && !loginAttr.includes(login)) {
+                    show = false;
+                }
+                if (email && !emailAttr.includes(email)) {
+                    show = false;
+                }
+                
+                row.style.display = show ? '' : 'none';
+            });
+        }
+        
+        function resetUserSearch() {
+            document.getElementById('searchUserId').value = '';
+            document.getElementById('searchUserLogin').value = '';
+            document.getElementById('searchUserEmail').value = '';
+            const rows = document.querySelectorAll('#usersBody tr');
+            rows.forEach(row => {
+                row.style.display = '';
+            });
+        }
+        
+        // Поиск для обращений
+        function searchReports() {
+            const reportId = document.getElementById('searchReportId').value.trim();
+            const user = document.getElementById('searchReportUser').value.trim().toLowerCase();
+            const status = document.getElementById('searchReportStatus').value.toLowerCase();
+            const rows = document.querySelectorAll('#reportsBody tr');
+            
+            rows.forEach(row => {
+                const idAttr = row.getAttribute('data-report-id');
+                const userAttr = row.getAttribute('data-report-user');
+                const statusAttr = row.getAttribute('data-report-status');
+                let show = true;
+                
+                if (reportId && idAttr !== reportId) {
+                    show = false;
+                }
+                if (user && !userAttr.includes(user)) {
+                    show = false;
+                }
+                if (status && statusAttr !== status) {
+                    show = false;
+                }
+                
+                row.style.display = show ? '' : 'none';
+            });
+        }
+        
+        function resetReportSearch() {
+            document.getElementById('searchReportId').value = '';
+            document.getElementById('searchReportUser').value = '';
+            document.getElementById('searchReportStatus').value = '';
+            const rows = document.querySelectorAll('#reportsBody tr');
+            rows.forEach(row => {
+                row.style.display = '';
+            });
+        }
+        
+        // Поиск для логов
+        function searchLogs() {
+            const user = document.getElementById('searchLogUser').value.trim().toLowerCase();
+            const type = document.getElementById('searchLogType').value.trim().toLowerCase();
+            const rows = document.querySelectorAll('#logsBody tr');
+            
+            rows.forEach(row => {
+                const userAttr = row.getAttribute('data-log-user');
+                const typeAttr = row.getAttribute('data-log-type');
+                let show = true;
+                
+                if (user && !userAttr.includes(user)) {
+                    show = false;
+                }
+                if (type && !typeAttr.includes(type)) {
+                    show = false;
+                }
+                
+                row.style.display = show ? '' : 'none';
+            });
+        }
+        
+        function resetLogSearch() {
+            document.getElementById('searchLogUser').value = '';
+            document.getElementById('searchLogType').value = '';
+            const rows = document.querySelectorAll('#logsBody tr');
+            rows.forEach(row => {
+                row.style.display = '';
+            });
+        }
+        
+        // Отмена бронирования
+        function cancelBooking(bookingId) {
+            if (!confirm(`Отменить бронирование №${bookingId}?`)) {
+                return;
+            }
+            
+            fetch('/cancel_booking_admin', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({booking_id: bookingId})
@@ -679,10 +546,47 @@
             });
         }
         
-        document.addEventListener('DOMContentLoaded', function() {
-            switchTab('bookings');
-        });
+        // Изменение статуса обращения
+        function changeReportStatus(reportId, newStatus) {
+            fetch('/change_report_status', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({report_id: reportId, status: newStatus})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert('Ошибка: ' + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Ошибка при изменении статуса');
+            });
+        }
+        
+        // Переключение вкладок
+        function showPage(num) {
+            document.getElementById('page1').style.display = 'none';
+            document.getElementById('page2').style.display = 'none';
+            document.getElementById('page3').style.display = 'none';
+            document.getElementById('page' + num).style.display = 'block';
+            
+            let btns = document.querySelectorAll('.tab-btn');
+            btns.forEach((btn, index) => {
+                if (index + 1 === num) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+        
+        document.querySelector('.tab-btn').classList.add('active');
     </script>
+    
     {% include '_footer.html' %}
 </body>
 </html>
