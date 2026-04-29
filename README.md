@@ -207,10 +207,12 @@ CREATE TABLE logs (
 
 -- Таблица обращений в поддержку
 ```
+-- Таблица обращений в поддержку
 CREATE TABLE reports (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(id),
-    route_id INTEGER REFERENCES routes(id),
     report VARCHAR(400) NOT NULL,
+    status VARCHAR(50) DEFAULT 'В процессе',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+```
