@@ -36,35 +36,56 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             margin: 0 auto;
             padding: 30px;
-            max-width: 1200px;
+            max-width: 800px;
             min-height: 400px;
         }
         
-        .development-message {
-            text-align: center;
-            padding: 60px 20px;
+        .steps-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
         }
         
-        .development-message i {
-            font-size: 60px;
-            color: #1a73e8;
-            margin-bottom: 20px;
-            opacity: 0.5;
+        .steps-list li {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
         }
         
-        .development-message h2 {
+        .steps-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .step-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #1a73e8 0%, #6c8ef5 100%);
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .step-text {
+            flex: 1;
             color: #333;
-            font-size: 28px;
-            margin: 0 0 15px 0;
-            font-weight: 400;
+            font-size: 16px;
+            line-height: 1.5;
         }
         
-        .development-message p {
-            color: #666;
-            font-size: 16px;
-            line-height: 1.6;
-            max-width: 600px;
-            margin: 0 auto;
+        .warning-note {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            color: #856404;
+            font-size: 14px;
         }
         
         @media (max-width: 768px) {
@@ -74,18 +95,21 @@
             
             .main-frame {
                 padding: 20px;
+                max-width: 100%;
             }
             
             .page-header h1 {
                 font-size: 28px;
             }
             
-            .development-message h2 {
-                font-size: 24px;
+            .step-text {
+                font-size: 14px;
             }
             
-            .development-message p {
-                font-size: 15px;
+            .step-number {
+                min-width: 28px;
+                height: 28px;
+                font-size: 12px;
             }
         }
         
@@ -96,15 +120,11 @@
             
             .main-frame {
                 padding: 15px;
-                min-height: 300px;
             }
             
-            .development-message {
-                padding: 30px 15px;
-            }
-            
-            .development-message h2 {
-                font-size: 22px;
+            .steps-list li {
+                gap: 10px;
+                padding: 12px 0;
             }
         }
     </style>
@@ -118,9 +138,39 @@
         </div>
         
         <div class="main-frame">
-            <div class="development-message">
-                <h2>Страница в разработке</h2>
-                <p>Скоро здесь что-то появится.</p>
+            <ul class="steps-list">
+                <li>
+                    <span class="step-number">1</span>
+                    <span class="step-text">Зарегистрироваться или авторизоваться в личном кабинете</span>
+                </li>
+                <li>
+                    <span class="step-number">2</span>
+                    <span class="step-text">Перейти в главное меню «Поиска билетов»</span>
+                </li>
+                <li>
+                    <span class="step-number">3</span>
+                    <span class="step-text">Найти необходимый рейс из предложенных вариантов</span>
+                </li>
+                <li>
+                    <span class="step-number">4</span>
+                    <span class="step-text">Прожмите кнопку «Забронировать» у выбранного рейса</span>
+                </li>
+                <li>
+                    <span class="step-number">5</span>
+                    <span class="step-text">Далее перейдите в Личный кабинет</span>
+                </li>
+                <li>
+                    <span class="step-number">6</span>
+                    <span class="step-text">В личном кабинете у выбранного рейса прожмите кнопку «Оплатить»</span>
+                </li>
+                <li>
+                    <span class="step-number">7</span>
+                    <span class="step-text">После успешной оплаты вы сможете скачать электронный билет в личном кабинете</span>
+                </li>
+            </ul>
+            
+            <div class="warning-note">
+                <i class="fas fa-clock"></i> Обратите внимание: бронирование действует только 15 минут.
             </div>
         </div>
     </div>
