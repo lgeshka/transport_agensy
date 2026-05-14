@@ -36,35 +36,68 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             margin: 0 auto;
             padding: 30px;
-            max-width: 1200px;
-            min-height: 400px;
+            max-width: 1000px;
         }
         
-        .development-message {
-            text-align: center;
-            padding: 60px 20px;
+        .rules-section {
+            margin-bottom: 35px;
         }
         
-        .development-message i {
-            font-size: 60px;
+        .rules-section h2 {
             color: #1a73e8;
-            margin-bottom: 20px;
-            opacity: 0.5;
-        }
-        
-        .development-message h2 {
-            color: #333;
-            font-size: 28px;
+            font-size: 22px;
             margin: 0 0 15px 0;
-            font-weight: 400;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #1a73e8;
         }
         
-        .development-message p {
-            color: #666;
-            font-size: 16px;
+        .rules-section h3 {
+            color: #333;
+            font-size: 18px;
+            margin: 20px 0 10px 0;
+        }
+        
+        .rules-section p {
+            margin: 10px 0;
+            font-size: 15px;
             line-height: 1.6;
-            max-width: 600px;
-            margin: 0 auto;
+            color: #333;
+        }
+        
+        .rules-section ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        
+        .rules-section li {
+            margin: 8px 0;
+            font-size: 15px;
+            line-height: 1.5;
+            color: #333;
+        }
+        
+        .ticket-type {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e8f0fe 100%);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .ticket-type strong {
+            color: #1a73e8;
+        }
+        
+        .warning-box {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .warning-box p {
+            margin: 0;
+            color: #856404;
         }
         
         @media (max-width: 768px) {
@@ -80,12 +113,8 @@
                 font-size: 28px;
             }
             
-            .development-message h2 {
-                font-size: 24px;
-            }
-            
-            .development-message p {
-                font-size: 15px;
+            .rules-section h2 {
+                font-size: 20px;
             }
         }
         
@@ -96,15 +125,15 @@
             
             .main-frame {
                 padding: 15px;
-                min-height: 300px;
             }
             
-            .development-message {
-                padding: 30px 15px;
+            .rules-section h2 {
+                font-size: 18px;
             }
             
-            .development-message h2 {
-                font-size: 22px;
+            .rules-section p,
+            .rules-section li {
+                font-size: 14px;
             }
         }
     </style>
@@ -118,9 +147,78 @@
         </div>
         
         <div class="main-frame">
-            <div class="development-message">
-                <h2>Страница в разработке</h2>
-                <p>Скоро здесь что-то появится.</p>
+            <div class="rules-section">
+                <h2>Типы авиабилетов</h2>
+                
+                <div class="ticket-type">
+                    <strong>Невозвратные билеты</strong>
+                    <p>Самые доступные по цене. При отказе от перевозки деньги не возвращаются. Возможен только возврат такс и сборов.</p>
+                </div>
+                
+                <div class="ticket-type">
+                    <strong>Возвратные билеты</strong>
+                    <p>Дороже, но позволяют вернуть полную стоимость билета при отказе от перевозки за 24 часа до вылета.</p>
+                </div>
+                
+                <div class="ticket-type">
+                    <strong>Билеты с открытой датой</strong>
+                    <p>Позволяют изменить дату вылета без дополнительных сборов (в пределах тарифа).</p>
+                </div>
+            </div>
+                        <div class="rules-section">
+                <h2>Запрещённые к перевозке предметы</h2>
+                <p><strong>На всех видах транспорта категорически запрещено перевозить:</strong></p>
+                <ul>
+                    <li>Взрывчатые вещества и изделия (порох, патроны, пиротехника)</li>
+                    <li>Радиоактивные материалы и изотопы</li>
+                    <li>Легковоспламеняющиеся жидкости (бензин, ацетон, растворители)</li>
+                    <li>Отравляющие и ядовитые вещества</li>
+                    <li>Оружие без соответствующего разрешения</li>
+                    <li>Баллоны со сжатыми или сжиженными газами</li>
+                </ul>
+            </div>
+            <div class="rules-section">
+                <h2>Правила провоза жидкостей в самолёте</h2>
+                <p>При прохождении предполётного досмотра действуют следующие ограничения:</p>
+                <ul>
+                    <li>Жидкости разрешены только в ёмкостях до 100 мл</li>
+                    <li>Все ёмкости должны быть упакованы в прозрачный пластиковый пакет объёмом до 1 литра</li>
+                    <li>Одному пассажиру разрешён только один такой пакет</li>
+                    <li>Исключение составляют лекарства и детское питание (нужно подтверждение)</li>
+                </ul>
+                <p>К жидкостям относятся: вода, напитки, кремы, лосьоны, масла, пасты, гели, аэрозоли.</p>
+            </div>
+                        <div class="rules-section">
+                <h2>Правила перевозки аккумуляторов и батарей в самолёте</h2>
+                <p>В соответствии с действующими правилами безопасности при перевозке литий-ионных аккумуляторов действуют следующие ограничения:</p>
+                <ul>
+                    <li><strong>В ручной клади</strong> разрешены аккумуляторы мощностью до 100 Вт·ч без ограничений</li>
+                    <li>Аккумуляторы мощностью от 100 до 160 Вт·ч — не более 2 штук на пассажира (с разрешения авиакомпании)</li>
+                    <li>Аккумуляторы мощностью более 160 Вт·ч — к перевозке <strong>запрещены</strong></li>
+                    <li>Power bank (внешние аккумуляторы) и запасные батареи — <strong>только в ручной клади</strong>, в багаж их сдавать запрещено</li>
+                    <li>Аккумуляторы должны быть защищены от замыкания (в оригинальной упаковке или с заклеенными контактами)</li>
+                    <li>Электронные сигареты и вейпы — только в ручной клади, заряжать их на борту запрещено</li>
+                </ul>
+                
+                <div class="warning-box">
+                    <p>⚠️ <strong>Важно:</strong> Запрещается сдавать в багаж любые устройства с литий-ионными аккумуляторами, если их нельзя выключить или отсоединить батарею. Нарушение правил влечёт административную ответственность.</p>
+                </div>
+            </div>
+            <div class="rules-section">
+                <h2>Ограничения багажа на ЖД транспорте</h2>
+                <p>При перевозке по железной дороге действуют следующие габаритные ограничения:</p>
+                <ul>
+                    <li>Ручная кладь: сумма трёх измерений не более 180 см</li>
+                    <li>Багаж в багажное отделение: не более 200 см по сумме измерений</li>
+                    <li>Вес ручной клади: до 36 кг (в купе и СВ), до 50 кг в сидячих вагонах</li>
+                    <li>Лыжи и сноуборды перевозятся бесплатно вне зависимости от габаритов</li>
+                </ul>
+            </div>
+            
+            <div class="rules-section">
+                <div class="warning-box">
+                    <p>⚠️ <strong>Важно:</strong> Перед поездкой уточните правила конкретного перевозчика, так как они могут отличаться от общих норм.</p>
+                </div>
             </div>
         </div>
     </div>
