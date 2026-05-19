@@ -37,34 +37,86 @@
             margin: 0 auto;
             padding: 30px;
             max-width: 1200px;
-            min-height: 400px;
         }
         
-        .development-message {
-            text-align: center;
-            padding: 60px 20px;
+        /* Два блока рядом */
+        .vip-row {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
         }
         
-        .development-message i {
-            font-size: 60px;
+        .vip-card {
+            flex: 1;
+            min-width: 250px;
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 25px 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e0e0e0;
+            transition: transform 0.2s;
+        }
+        
+        .vip-card:hover {
+            transform: translateY(-4px);
+        }
+        
+        .vip-card h3 {
             color: #1a73e8;
-            margin-bottom: 20px;
-            opacity: 0.5;
+            font-size: 24px;
+            margin: 0 0 20px 0;
+            border-left: 4px solid #1a73e8;
+            padding-left: 15px;
         }
         
-        .development-message h2 {
-            color: #333;
-            font-size: 28px;
-            margin: 0 0 15px 0;
-            font-weight: 400;
-        }
-        
-        .development-message p {
-            color: #666;
+        .vip-card p {
             font-size: 16px;
-            line-height: 1.6;
-            max-width: 600px;
-            margin: 0 auto;
+            line-height: 1.5;
+            color: #333;
+            margin: 0;
+        }
+        
+        .vip-card ul {
+            padding-left: 20px;
+            margin: 15px 0 0 0;
+        }
+        
+        .vip-card li {
+            margin: 10px 0;
+            font-size: 15px;
+            color: #555;
+        }
+        
+        /* Нижний горизонтальный блок с контактами */
+        .contacts-bar {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e8f0fe 100%);
+            border-radius: 16px;
+            padding: 20px 25px;
+            text-align: center;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            align-items: center;
+            border: 1px solid #d0e0f0;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 16px;
+            color: #1a73e8;
+        }
+        
+        .contact-item i {
+            font-size: 24px;
+            width: 30px;
+        }
+        
+        .contact-item span {
+            color: #333;
         }
         
         @media (max-width: 768px) {
@@ -80,12 +132,20 @@
                 font-size: 28px;
             }
             
-            .development-message h2 {
-                font-size: 24px;
+            .vip-row {
+                flex-direction: column;
+                gap: 20px;
             }
             
-            .development-message p {
-                font-size: 15px;
+            .contacts-bar {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            
+            .contact-item {
+                width: 100%;
+                justify-content: flex-start;
             }
         }
         
@@ -94,17 +154,8 @@
                 font-size: 24px;
             }
             
-            .main-frame {
-                padding: 15px;
-                min-height: 300px;
-            }
-            
-            .development-message {
-                padding: 30px 15px;
-            }
-            
-            .development-message h2 {
-                font-size: 22px;
+            .vip-card h3 {
+                font-size: 20px;
             }
         }
     </style>
@@ -118,9 +169,45 @@
         </div>
         
         <div class="main-frame">
-            <div class="development-message">
-                <h2>Страница в разработке</h2>
-                <p>Скоро здесь что-то появится.</p>
+            <!-- Два блока рядом -->
+            <div class="vip-row">
+                <div class="vip-card">
+                    <h3>Наши ВИП-услуги</h3>
+                    <p>Для наших привилегированных клиентов мы предоставляем:</p>
+                    <ul>
+                        <li>Индивидуальное сопровождение на всех этапах поездки</li>
+                        <li>Приоритетная регистрация и прохождение контроля</li>
+                        <li>Доступ в бизнес-залы и лаунджи</li>
+                        <li>Эксклюзивные тарифы на авиа, ЖД и речные перевозки</li>
+                        <li>Трансфер до/из аэропорта, вокзала, порта</li>
+                    </ul>
+                </div>
+                
+                <div class="vip-card">
+                    <h3>Важная информация</h3>
+                    <p>Для уточнения деталей специальных условий, а также по вопросам, связанным с конкретными рейсами и сервисами, обращайтесь непосредственно к вашему перевозчику или в представительство ответственной организации (аэропорт, вокзал, порт).</p>
+                    <p style="margin-top: 15px; font-style: italic; color: #1a73e8;">Мы всегда готовы помочь, но окончательные правила обслуживания устанавливаются оператором перевозки.</p>
+                </div>
+            </div>
+            
+            <!-- Нижняя горизонтальная планка с контактами агентства -->
+            <div class="contacts-bar">
+                <div class="contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>+7 (900) 000-00-00</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>example@email.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Круглосуточная поддержка</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Юридический Адрес</span>
+                </div>
             </div>
         </div>
     </div>

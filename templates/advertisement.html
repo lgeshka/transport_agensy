@@ -30,6 +30,7 @@
             font-size: 32px;
         }
         
+        /* Оригинальный стиль .main-frame — не трогаем */
         .main-frame {
             background-color: white;
             border-radius: 8px;
@@ -40,31 +41,70 @@
             min-height: 400px;
         }
         
-        .development-message {
-            text-align: center;
-            padding: 60px 20px;
-        }
-        
-        .development-message i {
-            font-size: 60px;
-            color: #1a73e8;
-            margin-bottom: 20px;
-            opacity: 0.5;
-        }
-        
-        .development-message h2 {
-            color: #333;
-            font-size: 28px;
-            margin: 0 0 15px 0;
-            font-weight: 400;
-        }
-        
-        .development-message p {
-            color: #666;
-            font-size: 16px;
-            line-height: 1.6;
-            max-width: 600px;
+        /* Центрированный блок (карточка-баннер) */
+        .offer-card {
+            max-width: 400px;
             margin: 0 auto;
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 30px 20px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .offer-card h3 {
+            color: #1a73e8;
+            font-size: 28px;
+            margin: 0 0 10px 0;
+        }
+        
+        .price {
+            font-size: 36px;
+            font-weight: bold;
+            color: #333;
+            margin: 15px 0;
+        }
+        
+        .price span {
+            font-size: 18px;
+            font-weight: normal;
+        }
+        
+        .features {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+            text-align: left;
+            display: inline-block;
+        }
+        
+        .features li {
+            margin: 10px 0;
+            font-size: 15px;
+            color: #555;
+        }
+        
+        .contact-block {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e8f0fe 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: center;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .contact-block p {
+            margin: 8px 0;
+            font-size: 15px;
+        }
+        
+        .contact-block .email {
+            font-size: 16px;
+            font-weight: bold;
+            color: #1a73e8;
         }
         
         @media (max-width: 768px) {
@@ -80,12 +120,13 @@
                 font-size: 28px;
             }
             
-            .development-message h2 {
-                font-size: 24px;
+            .offer-card {
+                max-width: 90%;
+                padding: 20px;
             }
             
-            .development-message p {
-                font-size: 15px;
+            .price {
+                font-size: 30px;
             }
         }
         
@@ -94,17 +135,12 @@
                 font-size: 24px;
             }
             
-            .main-frame {
-                padding: 15px;
-                min-height: 300px;
+            .offer-card h3 {
+                font-size: 24px;
             }
             
-            .development-message {
-                padding: 30px 15px;
-            }
-            
-            .development-message h2 {
-                font-size: 22px;
+            .price {
+                font-size: 26px;
             }
         }
     </style>
@@ -118,9 +154,27 @@
         </div>
         
         <div class="main-frame">
-            <div class="development-message">
-                <h2>Страница в разработке</h2>
-                <p>Скоро здесь что-то появится.</p>
+            <!-- Текст-описание (можно убрать, если не нужно, но пусть будет по центру) -->
+            <p style="text-align: center; font-size: 16px; color: #555; margin-bottom: 30px;">
+                Разместите рекламу на нашем транспортном портале — ваше сообщение увидят тысячи путешественников и бизнес-клиентов.
+            </p>
+            
+            <!-- Квадратный / компактный блок по центру -->
+            <div class="offer-card">
+                <h3>Баннер</h3>
+                <div class="price">от 5 000 ₽<span>/мес</span></div>
+                <ul class="features">
+                    <li>✓ Верхний баннер на главной</li>
+                    <li>✓ Статистика переходов</li>
+                </ul>
+            </div>
+            
+            <!-- Контактная информация -->
+            <div class="contact-block">
+                <p><strong>По вопросам рекламы обращайтесь:</strong></p>
+                <p>✉️ <span class="email">example@email.com</span></p>
+                <p>📞 +7 (900) 000-00-00 (доб.1)</p>
+                <p>🕒 Пн–Пт, 10:00–19:00</p>
             </div>
         </div>
     </div>
