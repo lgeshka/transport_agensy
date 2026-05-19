@@ -13,7 +13,7 @@
             background-color: white;
         }
         
-        .bronirovanie-container {
+        .container {
             width: 100%;
             padding: 20px;
             box-sizing: border-box;
@@ -36,61 +36,98 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             margin: 0 auto;
             padding: 30px;
-            max-width: 600px;
-            min-height: 300px;
+            max-width: 1200px;
+        }
+        
+        .row {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .card {
+            flex: 1;
+            min-width: 250px;
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 25px 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e0e0e0;
+            transition: transform 0.2s;
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+        }
+        
+        .card h3 {
+            color: #1a73e8;
+            font-size: 24px;
+            margin: 0 0 20px 0;
+            border-left: 4px solid #1a73e8;
+            padding-left: 15px;
+        }
+        
+        .card p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #333;
+            margin: 0 0 15px;
+        }
+        
+        .contacts-bar {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e8f0fe 100%);
+            border-radius: 16px;
+            padding: 20px 25px;
             text-align: center;
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
             justify-content: center;
+            gap: 30px;
             align-items: center;
+            border: 1px solid #d0e0f0;
         }
         
-        .cooperation-text {
-            font-size: 18px;
-            color: #333;
-            line-height: 1.6;
-            max-width: 600px;
-            margin-bottom: 30px;
-        }
-        
-        .contact-email {
-            background: linear-gradient(135deg, #f0f7ff 0%, #e8f0fe 100%);
-            border-radius: 12px;
-            padding: 20px 30px;
-            text-align: center;
-        }
-        
-        .contact-email p {
-            margin: 10px 0;
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             font-size: 16px;
+            color: #1a73e8;
         }
         
-        .contact-email .email {
-            font-size: 20px;
-            font-weight: bold;
-            color: #1a73e8;
-            margin-top: 5px;
+        .contact-item i {
+            font-size: 24px;
+            width: 30px;
+        }
+        
+        .contact-item span {
+            color: #333;
         }
         
         @media (max-width: 768px) {
-            .bronirovanie-container {
+            .container {
                 padding: 10px;
             }
-            
             .main-frame {
                 padding: 20px;
             }
-            
             .page-header h1 {
                 font-size: 28px;
             }
-            
-            .cooperation-text {
-                font-size: 16px;
+            .row {
+                flex-direction: column;
+                gap: 20px;
             }
-            
-            .contact-email .email {
-                font-size: 18px;
+            .contacts-bar {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            .contact-item {
+                width: 100%;
+                justify-content: flex-start;
             }
         }
         
@@ -98,13 +135,8 @@
             .page-header h1 {
                 font-size: 24px;
             }
-            
-            .cooperation-text {
-                font-size: 15px;
-            }
-            
-            .contact-email .email {
-                font-size: 16px;
+            .card h3 {
+                font-size: 20px;
             }
         }
     </style>
@@ -112,21 +144,37 @@
 <body>
     {% include '_navbar.html' %}
     
-    <div class="bronirovanie-container">
+    <div class="container">
         <div class="page-header">
             <h1>Сотрудничество</h1>
         </div>
         
         <div class="main-frame">
-            <div class="cooperation-text">
-                Мы всегда рады новым партнёрам и интересным предложениям. 
-                По всем вопросам сотрудничества пишите нам на почту.
+            <div class="row">
+                <div class="card">
+                    <h3>Для партнёров</h3>
+                    <p>Мы рады сотрудничеству с транспортными компаниями, туристическими агентствами, отелями и сервисными организациями. Совместные акции, спецпредложения и интеграция с нашим сервисом помогут привлечь новую аудиторию.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Как стать партнёром</h3>
+                    <p>Для начала сотрудничества отправьте коммерческое предложение или описание ваших условий на наш специальный почтовый адрес. Мы рассмотрим его и свяжемся с вами в ближайшее время.</p>
+                </div>
             </div>
             
-            <div class="contact-email">
-                <p><strong>Контакт для сотрудничества:</strong></p>
-                <p class="email">📧 example@email.com</p>
-                <p>📞 +7 (900) 000-00-00 (доб.2)</p>
+            <div class="contacts-bar">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>example@email.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>+7 (900) 000-00-00 (доб.1)</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Пн–Пт, 10:00–18:00</span>
+                </div>
             </div>
         </div>
     </div>

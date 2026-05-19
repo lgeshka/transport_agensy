@@ -13,7 +13,7 @@
             background-color: white;
         }
         
-        .bronirovanie-container {
+        .container {
             width: 100%;
             padding: 20px;
             box-sizing: border-box;
@@ -30,7 +30,6 @@
             font-size: 32px;
         }
         
-        /* Оригинальный стиль .main-frame — не трогаем */
         .main-frame {
             background-color: white;
             border-radius: 8px;
@@ -38,95 +37,121 @@
             margin: 0 auto;
             padding: 30px;
             max-width: 1200px;
-            min-height: 400px;
         }
         
-        /* Центрированный блок (карточка-баннер) */
-        .offer-card {
-            max-width: 400px;
-            margin: 0 auto;
+        .row {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .card {
+            flex: 1;
+            min-width: 250px;
             background: #f8f9fa;
             border-radius: 16px;
-            padding: 30px 20px;
-            text-align: center;
+            padding: 25px 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             border: 1px solid #e0e0e0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
         }
         
-        .offer-card h3 {
+        .card:hover {
+            transform: translateY(-4px);
+        }
+        
+        .card h3 {
             color: #1a73e8;
-            font-size: 28px;
-            margin: 0 0 10px 0;
+            font-size: 24px;
+            margin: 0 0 20px 0;
+            border-left: 4px solid #1a73e8;
+            padding-left: 15px;
+        }
+        
+        .card p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #333;
+            margin: 0 0 15px;
         }
         
         .price {
-            font-size: 36px;
+            font-size: 28px;
             font-weight: bold;
-            color: #333;
+            color: #1a73e8;
             margin: 15px 0;
         }
         
         .price span {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: normal;
+            color: #666;
         }
         
-        .features {
-            list-style: none;
-            padding: 0;
-            margin: 20px 0;
-            text-align: left;
-            display: inline-block;
+        .card ul {
+            padding-left: 20px;
+            margin: 15px 0 0 0;
         }
         
-        .features li {
+        .card li {
             margin: 10px 0;
             font-size: 15px;
             color: #555;
         }
         
-        .contact-block {
+        .contacts-bar {
             background: linear-gradient(135deg, #f0f7ff 0%, #e8f0fe 100%);
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 30px;
+            border-radius: 16px;
+            padding: 20px 25px;
             text-align: center;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            align-items: center;
+            border: 1px solid #d0e0f0;
         }
         
-        .contact-block p {
-            margin: 8px 0;
-            font-size: 15px;
-        }
-        
-        .contact-block .email {
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             font-size: 16px;
-            font-weight: bold;
             color: #1a73e8;
         }
         
+        .contact-item i {
+            font-size: 24px;
+            width: 30px;
+        }
+        
+        .contact-item span {
+            color: #333;
+        }
+        
         @media (max-width: 768px) {
-            .bronirovanie-container {
+            .container {
                 padding: 10px;
             }
-            
             .main-frame {
                 padding: 20px;
             }
-            
             .page-header h1 {
                 font-size: 28px;
             }
-            
-            .offer-card {
-                max-width: 90%;
-                padding: 20px;
+            .row {
+                flex-direction: column;
+                gap: 20px;
             }
-            
-            .price {
-                font-size: 30px;
+            .contacts-bar {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            .contact-item {
+                width: 100%;
+                justify-content: flex-start;
             }
         }
         
@@ -134,13 +159,11 @@
             .page-header h1 {
                 font-size: 24px;
             }
-            
-            .offer-card h3 {
-                font-size: 24px;
+            .card h3 {
+                font-size: 20px;
             }
-            
             .price {
-                font-size: 26px;
+                font-size: 24px;
             }
         }
     </style>
@@ -148,33 +171,47 @@
 <body>
     {% include '_navbar.html' %}
     
-    <div class="bronirovanie-container">
+    <div class="container">
         <div class="page-header">
             <h1>Реклама на сайте</h1>
         </div>
         
         <div class="main-frame">
-            <!-- Текст-описание (можно убрать, если не нужно, но пусть будет по центру) -->
-            <p style="text-align: center; font-size: 16px; color: #555; margin-bottom: 30px;">
-                Разместите рекламу на нашем транспортном портале — ваше сообщение увидят тысячи путешественников и бизнес-клиентов.
-            </p>
-            
-            <!-- Квадратный / компактный блок по центру -->
-            <div class="offer-card">
-                <h3>Баннер</h3>
-                <div class="price">от 5 000 ₽<span>/мес</span></div>
-                <ul class="features">
-                    <li>✓ Верхний баннер на главной</li>
-                    <li>✓ Статистика переходов</li>
-                </ul>
+            <div class="row">
+                <div class="card">
+                    <h3>Баннерная реклама</h3>
+                    <div class="price">от 5 000 ₽<span>/мес</span></div>
+                    <ul>
+                        <li>✓ Верхний баннер на главной странице</li>
+                        <li>✓ Статистика переходов</li>
+                        <li>✓ Гибкие форматы (jpg, png, gif, webp)</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>Партнёрский блок</h3>
+                    <div class="price">от 15 000 ₽<span>/мес</span></div>
+                    <ul>
+                        <li>✓ Размещение логотипа в разделе «Партнёры»</li>
+                        <li>✓ Прямая ссылка на ваш сайт</li>
+                        <li>✓ Упоминание в соцсетях агентства</li>
+                    </ul>
+                </div>
             </div>
             
-            <!-- Контактная информация -->
-            <div class="contact-block">
-                <p><strong>По вопросам рекламы обращайтесь:</strong></p>
-                <p>✉️ <span class="email">example@email.com</span></p>
-                <p>📞 +7 (900) 000-00-00 (доб.1)</p>
-                <p>🕒 Пн–Пт, 10:00–19:00</p>
+            <div class="contacts-bar">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>example@email.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>+7 (900) 000-00-00 (доб.2)</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Пн–Пт, 10:00–19:00</span>
+                </div>
             </div>
         </div>
     </div>
